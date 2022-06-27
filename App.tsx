@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/inter";
 
 import theme from "./src/global/theme";
+import { Login } from "./src/screens/Login";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +25,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dashboard />
+      <Login />
     </ThemeProvider>
   );
 }
