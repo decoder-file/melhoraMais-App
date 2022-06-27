@@ -1,6 +1,6 @@
 import React from "react";
 import { CardCalculation } from "../../components/CardCalculation";
-import { Header } from "../../components/Header";
+import { WelcomeHeader } from "../../components/WelcomeHeader";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -15,7 +15,7 @@ import { ScrollView } from "react-native";
 export function Dashboard() {
   return (
     <>
-      <Header />
+      <WelcomeHeader />
       <Container>
         <ButtonAddNewCalculation>
           <Ionicons name="add-circle-sharp" size={24} color="black" />

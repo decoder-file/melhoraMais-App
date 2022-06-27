@@ -1,25 +1,18 @@
 import React from "react";
 
-import {
-  Container,
-  ContainerName,
-  Name,
-  Welcome,
-  ButtonExit,
-  TitleExit,
-} from "./styles";
+import { MaterialIcons } from "@expo/vector-icons";
+
+import { Container, Title, ButtonExit, TitleExit } from "./styles";
+import { View } from "react-native";
 
 export function Header() {
   return (
-    <Container activeOpacity={0.8}>
-      <ContainerName>
-        <Welcome>Bem-vindo,</Welcome>
-        <Name>André Loureiro</Name>
-      </ContainerName>
-
-      <ButtonExit>
-        <TitleExit>Sair</TitleExit>
+    <Container>
+      <ButtonExit activeOpacity={0.8}>
+        <MaterialIcons name="arrow-back-ios" size={24} color="#FFFFFF" />
       </ButtonExit>
+      <Title>Novo cálculo</Title>
+      <View />
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: 100%;
   border-radius: 8px;
   padding-top: ${getStatusBarHeight() + RFPercentage(4)}px;
@@ -16,12 +16,25 @@ export const Container = styled.View`
   padding-bottom: 20px;
 `;
 
-export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
+export const ContainerName = styled.View``;
+
+export const Welcome = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  margin-bottom: ${RFPercentage(0.5)}px;
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const Name = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.white};
 `;
 
 export const ButtonExit = styled.TouchableOpacity``;
 
-export const TitleExit = styled.Text``;
+export const TitleExit = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(16)}px;
+  color: ${({ theme }) => theme.colors.white};
+`;
