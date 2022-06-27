@@ -9,6 +9,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   justify-content: space-between;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   margin-top: ${({ marginTop }) => (marginTop ? marginTop : 0)}px;
+  margin-bottom: 10px;
 `;
 
 export const ContainerDescription = styled.View`
