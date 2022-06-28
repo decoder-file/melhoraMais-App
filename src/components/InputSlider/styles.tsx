@@ -1,9 +1,11 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
-import { PropsInput } from "./index";
+export const Container = styled.View`
+  width: 45%;
+`;
 
-export const Container = styled.View<PropsInput>`
+export const ContainerInput = styled.View`
   width: 100%;
   height: 51px;
   background: ${({ theme }) => theme.colors.white};
@@ -12,19 +14,17 @@ export const Container = styled.View<PropsInput>`
   border-color: #ebebec;
   flex-direction: row;
   align-items: center;
-
-  margin-bottom: ${({ marginBottom }) => (marginBottom ? marginBottom : 0)}px;
 `;
 
-export const TitleInput = styled.Text<PropsInput>`
+export const TitleInput = styled.Text`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  margin-bottom: ${RFPercentage(2)}px;
-  margin-top: ${({ marginTop }) => (marginTop ? marginTop : 0)}px;
+  margin-right: 5px;
 `;
 
 export const TextInput = styled.TextInput`
-  flex: 1;
+  width: 100%;
+  height: 100%;
   font-size: ${RFValue(16)}px;
   padding-left: 16px;
 `;
@@ -36,4 +36,10 @@ export const TextError = styled.Text`
 
 export const ContainerError = styled.View`
   margin-bottom: 10px;
+`;
+
+export const ContainerTitle = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${RFPercentage(2)}px;
 `;
