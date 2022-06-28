@@ -1,11 +1,12 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { getBottomSpace } from "react-native-iphone-x-helper";
+import { ScrollView } from "react-native";
 
 import { Header } from "../../components/Header";
 import { InputSlider } from "../../components/InputSlider";
 import { Input } from "../../components/Input";
-import { ScrollView } from "react-native";
 import { Button } from "../../components/Button";
-import { getBottomSpace } from "react-native-iphone-x-helper";
 import { Tag } from "../../components/Tag";
 
 import {
@@ -18,9 +19,10 @@ import {
 } from "./styles";
 
 export function RegisterCalculation() {
+  const navigation = useNavigation();
   return (
     <>
-      <Header />
+      <Header title="Novo cálculo" />
       <ScrollView
         keyboardShouldPersistTaps="handled"
         style={{ backgroundColor: "#FCF9F2" }}
@@ -30,7 +32,7 @@ export function RegisterCalculation() {
           <ContainerTag>
             <Tag />
           </ContainerTag>
-          <ButtonAddTag>
+          <ButtonAddTag onPress={() => navigation.navigate("CreateTag")}>
             <TitleButtonTag>Criar nova etiqueta</TitleButtonTag>
           </ButtonAddTag>
 

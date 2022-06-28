@@ -16,8 +16,10 @@ import {
   ContainerSocialNetwork,
 } from "./styles";
 import { SocialNetworkButton } from "../../components/SocialNetworkButton";
+import { useNavigation } from "@react-navigation/native";
 
 export function Login() {
+  const navigation = useNavigation();
   return (
     <Container>
       <ContainerInput>
@@ -41,7 +43,11 @@ export function Login() {
         />
       </ContainerInput>
 
-      <ButtonLogin title="Entrar" marginTop={30} />
+      <ButtonLogin
+        title="Entrar"
+        marginTop={30}
+        onPress={() => navigation.navigate("Dashboard")}
+      />
 
       <SocialNetworkTab>
         <Line />

@@ -25,5 +25,3 @@ export const Title = styled.Text`
 `;
 
 export const ButtonExit = styled.TouchableOpacity``;
-
-export const TitleExit = styled.Text``;
