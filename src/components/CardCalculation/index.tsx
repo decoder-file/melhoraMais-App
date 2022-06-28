@@ -9,10 +9,7 @@ import {
   ContainerDescription,
   Description,
   Localization,
-  ContainerButton,
-  ButtonEdit,
   ButtonDelete,
-  Separator,
   ContainerLocalization,
 } from "./styles";
 import { Tag } from "../Tag";
@@ -35,15 +32,9 @@ export function CardCalculation({ title, marginTop }: ButtonProps) {
         </ContainerLocalization>
       </ContainerDescription>
 
-      <ContainerButton>
-        <ButtonEdit>
-          <FontAwesome name="edit" size={24} color="#FEC321" />
-        </ButtonEdit>
-        <Separator />
-        <ButtonDelete>
-          <FontAwesome name="trash" size={24} color="#F91E1E" />
-        </ButtonDelete>
-      </ContainerButton>
+      <ButtonDelete>
+        <FontAwesome name="trash" size={24} color="#F91E1E" />
+      </ButtonDelete>
     </Container>
   );
 }

@@ -13,7 +13,7 @@ import {
 export function WelcomeHeader() {
   const navigation = useNavigation();
   return (
-    <Container activeOpacity={0.8}>
+    <Container>
       <ContainerName>
         <Welcome>Bem-vindo,</Welcome>
         <Name>André Loureiro</Name>

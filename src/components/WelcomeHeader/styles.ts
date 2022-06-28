@@ -2,7 +2,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View`
   width: 100%;
   border-radius: 8px;
   padding-top: ${getStatusBarHeight() + RFPercentage(4)}px;
