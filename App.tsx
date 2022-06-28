@@ -1,6 +1,6 @@
+import "react-native-gesture-handler";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
-import { Dashboard } from "./src/screens/Dashboard";
 
 import {
   useFonts,
@@ -10,9 +10,8 @@ import {
 } from "@expo-google-fonts/inter";
 
 import theme from "./src/global/theme";
-import { Login } from "./src/screens/Login";
-import { RegisterCalculation } from "./src/screens/RegisterCalculation";
-import { CreateTag } from "./src/screens/CreateTag";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppRoutes } from "./src/routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +26,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CreateTag />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
