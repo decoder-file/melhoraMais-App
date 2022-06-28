@@ -4,7 +4,7 @@ import { TextInputProps } from "react-native";
 import {
   Container,
   TitleInput,
-  TextInput,
+  InputField,
   ContainerError,
   TextError,
 } from "./styles";
@@ -23,6 +23,7 @@ export function Input({
   touched,
   marginTop,
   marginBottom,
+  ...rest
 }: PropsInput) {
   const validationColor = !touched ? "#FFFFFF" : error ? "#FF5A5F" : "#FFFFFF";
 
@@ -34,7 +35,7 @@ export function Input({
         style={{ borderColor: validationColor }}
         marginBottom={marginBottom}
       >
-        <TextInput />
+        <InputField {...rest} />
       </Container>
       {error ? (
         <ContainerError>

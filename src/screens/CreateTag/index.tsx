@@ -25,7 +25,7 @@ export function CreateTag() {
         style={{ backgroundColor: "#FCF9F2" }}
       >
         <Container>
-          <Input title="Título etiqueta" />
+          <Input title="Título etiqueta" placeholder="Título da etiqueta" />
 
           <ContainerTag>
             <Title>Selecionar uma cor</Title>

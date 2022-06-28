@@ -9,12 +9,18 @@ export interface ButtonProps extends TouchableOpacityProps {
   marginBottom?: number;
 }
 
-export function Button({ title, marginTop, marginBottom }: ButtonProps) {
+export function Button({
+  title,
+  marginTop,
+  marginBottom,
+  ...rest
+}: ButtonProps) {
   return (
     <Container
       activeOpacity={0.8}
       marginTop={marginTop}
       marginBottom={marginBottom}
+      {...rest}
     >
       <Title>{title}</Title>
     </Container>

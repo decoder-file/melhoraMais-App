@@ -1,5 +1,6 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { TextInput } from "react-native";
 
 import { PropsInput } from "./index";
 
@@ -23,7 +24,7 @@ export const TitleInput = styled.Text<PropsInput>`
   margin-top: ${({ marginTop }) => (marginTop ? marginTop : 0)}px;
 `;
 
-export const TextInput = styled.TextInput`
+export const InputField = styled(TextInput)`
   flex: 1;
   font-size: ${RFValue(16)}px;
   padding-left: 16px;

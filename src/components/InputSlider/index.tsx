@@ -9,7 +9,7 @@ import {
   Container,
   ContainerInput,
   TitleInput,
-  TextInput,
+  InputField,
   ContainerTitle,
 } from "./styles";
 import { TouchableOpacity } from "react-native";
@@ -19,7 +19,7 @@ interface InputSliderProps extends TextInputProps {
   tooltip?: string;
 }
 
-export function InputSlider({ title, tooltip }: InputSliderProps) {
+export function InputSlider({ title, tooltip, ...rest }: InputSliderProps) {
   const [toolTipVisible, setToolTipVisible] = useState(false);
   return (
     <>
@@ -41,7 +41,7 @@ export function InputSlider({ title, tooltip }: InputSliderProps) {
           )}
         </ContainerTitle>
         <ContainerInput>
-          <TextInput />
+          <InputField {...rest} />
         </ContainerInput>
         <Slider
           style={{ width: "100%", height: 40 }}

@@ -1,9 +1,10 @@
+import { TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 import { ButtonProps } from "./index";
 
-export const Container = styled.TouchableOpacity<ButtonProps>`
+export const Container = styled(TouchableOpacity)<ButtonProps>`
   width: 100%;
   border-radius: 8px;
   padding: 12px;
