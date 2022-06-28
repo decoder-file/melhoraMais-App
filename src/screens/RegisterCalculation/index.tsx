@@ -36,7 +36,6 @@ export function RegisterCalculation() {
 
           <Input title="Título" placeholder="Título" />
           <Input title="Descrição" placeholder="Descrição" marginTop={20} />
-
           <ContainerInputSlider>
             <InputSlider title="Peso de entrada" />
             <InputSlider title="Custo diario" />

@@ -17,7 +17,7 @@ export const ContainerInputSlider = styled.View`
 export const TitleTag = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
-  margin-bottom: ${RFValue(10)};
+  margin-bottom: ${RFValue(10)}px;
 `;
 
 export const ContainerTag = styled.View`

@@ -12,6 +12,7 @@ import {
 import theme from "./src/global/theme";
 import { Login } from "./src/screens/Login";
 import { RegisterCalculation } from "./src/screens/RegisterCalculation";
+import { CreateTag } from "./src/screens/CreateTag";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,7 +27,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <RegisterCalculation />
+      <CreateTag />
     </ThemeProvider>
   );
 }
