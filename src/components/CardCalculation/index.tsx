@@ -17,12 +17,17 @@ import { Tag } from "../Tag";
 export interface ButtonProps extends TouchableOpacityProps {
   title?: string;
   marginTop?: number;
+  deleteCalculation: () => void;
 }
 
-export function CardCalculation({ title, marginTop }: ButtonProps) {
+export function CardCalculation({
+  title,
+  marginTop,
+  deleteCalculation,
+}: ButtonProps) {
   return (
-    <Container activeOpacity={0.8} marginTop={marginTop}>
-      <ContainerDescription>
+    <Container marginTop={marginTop}>
+      <ContainerDescription activeOpacity={0.8}>
         <Tag />
         <Title>Colonial Agropecuária</Title>
         <Description>Registro feito na fazenda colonial</Description>
@@ -32,7 +37,7 @@ export function CardCalculation({ title, marginTop }: ButtonProps) {
         </ContainerLocalization>
       </ContainerDescription>
 
-      <ButtonDelete>
+      <ButtonDelete activeOpacity={0.8} onPress={deleteCalculation}>
         <FontAwesome name="trash" size={24} color="#F91E1E" />
       </ButtonDelete>
     </Container>
