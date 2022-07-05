@@ -62,7 +62,7 @@ export function Login() {
       </ContainerSocialNetwork>
 
       <Option>
-        <NewPassword>
+        <NewPassword onPress={() => navigation.navigate("Registration")}>
           <NewPasswordText>
             Não tem uma conta? <Span>Faça seu cadastro</Span>
           </NewPasswordText>

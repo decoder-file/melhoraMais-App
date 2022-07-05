@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
-
 import { Ionicons } from "@expo/vector-icons";
-import { Button, ScrollView, View, Text } from "react-native";
+import { ScrollView } from "react-native";
 
 import { CardCalculation } from "../../components/CardCalculation";
 import { WelcomeHeader } from "../../components/WelcomeHeader";
