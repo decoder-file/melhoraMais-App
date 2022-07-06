@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
+import FlashMessage from "react-native-flash-message";
 
 import {
   useFonts,
@@ -25,10 +26,13 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+      <FlashMessage position="top" />
+    </>
   );
 }

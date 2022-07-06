@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { AntDesign } from "@expo/vector-icons";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -24,6 +25,9 @@ const LoginSchema = Yup.object().shape({
     .email("Email inválido")
     .required("Campo e-mail obrigatório"),
   password: Yup.string().min(4).required("Campo senha obrigatório"),
+  confirmPassword: Yup.string()
+    .min(4)
+    .required("Campo confirmar senha obrigatório"),
 });
 
 export function Registration() {
@@ -33,13 +37,27 @@ export function Registration() {
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
       validationSchema: LoginSchema,
-      initialValues: { name: "", email: "", password: "" },
+      initialValues: { name: "", email: "", password: "", confirmPassword: "" },
       onSubmit: async (v) => {
-        try {
-          // await doLogin(v.email, v.password);
-          navigation.navigate("Dashboard");
-        } catch (err: any) {
-          setTitleMessage(err.message);
+        if (values.password === values.confirmPassword) {
+          try {
+            navigation.navigate("Dashboard");
+          } catch (err: any) {
+            showMessage({
+              message: "Erro no cadastro",
+              description:
+                "Ocorreu um erro inesperado. Tente novamente mais tarde!",
+              type: "danger",
+              icon: "danger",
+            });
+          }
+        } else {
+          showMessage({
+            message: "Erro no cadastro",
+            description: "Os campos senhas devem ser iguais!",
+            type: "danger",
+            icon: "danger",
+          });
         }
       },
     });
@@ -47,6 +65,7 @@ export function Registration() {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
       style={{ backgroundColor: "#FCF9F2" }}
     >
       <Container>
@@ -91,12 +110,12 @@ export function Registration() {
             autoCompleteType="password"
             autoCapitalize="none"
             keyboardAppearance="dark"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
+            onChangeText={handleChange("confirmPassword")}
+            onBlur={handleBlur("confirmPassword")}
+            error={errors.confirmPassword}
+            touched={touched.confirmPassword}
             onSubmitEditing={() => handleSubmit()}
-            value={values.password}
+            value={values.confirmPassword}
           />
           <Separator />
           <Input
@@ -107,6 +126,12 @@ export function Registration() {
             autoCapitalize="none"
             keyboardAppearance="dark"
             autoCompleteType="password"
+            onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
+            onSubmitEditing={() => handleSubmit()}
+            value={values.password}
           />
         </ContainerInput>
 
