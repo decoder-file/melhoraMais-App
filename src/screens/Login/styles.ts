@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const ContainerInput = styled.View``;
 
 export const Separator = styled.View`
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 export const ButtonLogin = styled(Button)``;

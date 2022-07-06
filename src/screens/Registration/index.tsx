@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { AntDesign } from "@expo/vector-icons";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -19,7 +19,7 @@ import {
   BackButton,
 } from "./styles";
 
-const LoginSchema = Yup.object().shape({
+const RegistrationSchema = Yup.object().shape({
   name: Yup.string().min(2).required("Campo nome obrigatório"),
   email: Yup.string()
     .email("Email inválido")
@@ -32,11 +32,10 @@ const LoginSchema = Yup.object().shape({
 
 export function Registration() {
   const navigation = useNavigation();
-  const [titleMessage, setTitleMessage] = useState("error");
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
-      validationSchema: LoginSchema,
+      validationSchema: RegistrationSchema,
       initialValues: { name: "", email: "", password: "", confirmPassword: "" },
       onSubmit: async (v) => {
         if (values.password === values.confirmPassword) {
@@ -139,7 +138,7 @@ export function Registration() {
           title="Criar conta"
           marginTop={30}
           marginBottom={getBottomSpace() + 10}
-          onPress={handleSubmit}
+          onPress={() => handleSubmit()}
         />
       </Container>
     </ScrollView>
