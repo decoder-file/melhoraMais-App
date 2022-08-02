@@ -39,33 +39,51 @@ export function RegisterCalculation() {
           <Input title="Título" placeholder="Título" />
           <Input title="Descrição" placeholder="Descrição" marginTop={20} />
           <ContainerInputSlider>
-            <InputSlider title="Peso de entrada" />
-            <InputSlider title="Custo diario" />
+            <InputSlider
+              title="Peso de entrada"
+              placeholder="Peso de entrada"
+            />
+            <InputSlider title="Custo diario" placeholder="Custo diario" />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="Preço @ compra" />
-            <InputSlider title="GMD" />
+            <InputSlider title="Preço @ compra" placeholder="Preço @ compra" />
+            <InputSlider title="GMD" placeholder="GMD" />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="Tempo Permanência" />
-            <InputSlider title="Peso de saída" />
+            <InputSlider
+              title="Tempo Permanência"
+              placeholder="Tempo Permanência"
+            />
+            <InputSlider title="Peso de saída" placeholder="Peso de saída" />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="RC inicial" />
-            <InputSlider title="RC final" />
+            <InputSlider title="RC inicial" placeholder="RC inicial" />
+            <InputSlider title="RC final" placeholder="RC final" />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="Preço @ de venda" />
-            <InputSlider title="Valor de compra" />
+            <InputSlider
+              title="Preço @ de venda"
+              placeholder="Preço @ de venda"
+            />
+            <InputSlider
+              title="Valor de compra"
+              placeholder="Valor de compra"
+            />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="Preço @ produzida" />
-            <InputSlider title="Rendimento do capital" />
+            <InputSlider
+              title="Preço @ produzida"
+              placeholder="Preço @ produzida"
+            />
+            <InputSlider
+              title="Rendimento do capital"
+              placeholder="Rendimento do capital"
+            />
           </ContainerInputSlider>
 
           <Input title="Resultado" placeholder="Resultado" marginTop={20} />

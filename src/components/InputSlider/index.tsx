@@ -3,7 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import Slider from "@react-native-community/slider";
 
-import { TextInputProps } from "react-native";
+import { Text, TextInputProps } from "react-native";
 
 import {
   Container,
@@ -21,6 +21,7 @@ interface InputSliderProps extends TextInputProps {
 
 export function InputSlider({ title, tooltip, ...rest }: InputSliderProps) {
   const [toolTipVisible, setToolTipVisible] = useState(false);
+  const [sliderValue, setSliderValue] = useState(0);
   return (
     <>
       <Container>
@@ -41,13 +42,21 @@ export function InputSlider({ title, tooltip, ...rest }: InputSliderProps) {
           )}
         </ContainerTitle>
         <ContainerInput>
-          <InputField {...rest} />
+          <InputField
+            {...rest}
+            onChangeText={(newText) => setSliderValue(newText)}
+            defaultValue={sliderValue}
+          />
         </ContainerInput>
+        <Text>{Math.floor(sliderValue * 800)}</Text>
         <Slider
           style={{ width: "100%", height: 40 }}
           minimumTrackTintColor="#FF5531"
           maximumTrackTintColor="#C8C8C8"
           thumbTintColor="#FF5531"
+          minimumValue={0}
+          maximumValue={1}
+          onValueChange={(value) => setSliderValue(value)}
         />
       </Container>
     </>

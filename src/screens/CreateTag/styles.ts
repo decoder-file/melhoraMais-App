@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 interface TagProps {
   color: string;
+  select: boolean;
 }
 
 export const Container = styled.View`
@@ -20,13 +21,15 @@ export const Title = styled.Text`
   margin-bottom: ${RFValue(16)}px;
 `;
 
-export const CardTag = styled.View<TagProps>`
+export const CardTag = styled.TouchableOpacity<TagProps>`
   width: ${RFValue(53)}px;
   height: ${RFValue(28)}px;
   border-radius: 6px;
   background-color: ${({ color }) => (color ? color : "#FFF")};
   margin-right: ${RFValue(5)}px;
   margin-bottom: ${RFValue(10)}px;
+  border: 2px solid white;
+  border-color: ${({ select }) => (select ? "#000" : "#FFF")};
 `;
 
 export const TagSelect = styled.View`
