@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 
 import { ScrollView, StatusBar } from "react-native";
-import { Button } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
+import { showMessage } from "react-native-flash-message";
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
 
 import {
   Container,
@@ -15,12 +20,53 @@ import {
   ButtonSave,
 } from "./styles";
 
+const CreateTagSchema = Yup.object().shape({
+  title: Yup.string().min(1).required("Campo senha obrigatório"),
+});
+
 export function CreateTag() {
+  const navigation = useNavigation();
+
   const [tagSelect, setTagselect] = useState("");
 
   const handleTag = (color: string) => {
     setTagselect(color);
   };
+
+  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+    useFormik({
+      validationSchema: CreateTagSchema,
+      initialValues: { title: "" },
+
+      onSubmit: async (v) => {
+        try {
+          if (!tagSelect) {
+            showMessage({
+              message: "Erro ao criar tag",
+              description: "É obrigatorio selecionar uma cor",
+              type: "danger",
+              icon: "danger",
+            });
+          } else {
+            navigation.navigate("RegisterCalculation");
+            showMessage({
+              message: "Sucesso!",
+              description: "Tag criada com sucesso!",
+              type: "success",
+              icon: "success",
+            });
+          }
+        } catch (err: any) {
+          showMessage({
+            message: "Erro ao criar tag",
+            description:
+              "Ocorreu um erro inesperado. Tente novamente mais tarde!",
+            type: "danger",
+            icon: "danger",
+          });
+        }
+      },
+    });
 
   return (
     <>
@@ -31,7 +77,19 @@ export function CreateTag() {
         style={{ backgroundColor: "#FCF9F2" }}
       >
         <Container>
-          <Input title="Título etiqueta" placeholder="Título da etiqueta" />
+          <Input
+            title="Título etiqueta"
+            placeholder="Título da etiqueta"
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            onChangeText={handleChange("title")}
+            onBlur={handleBlur("title")}
+            error={errors.title}
+            touched={touched.title}
+            onSubmitEditing={() => handleSubmit()}
+            value={values.title}
+          />
 
           <ContainerTag>
             <Title>Selecionar uma cor</Title>
@@ -93,7 +151,7 @@ export function CreateTag() {
           </ContainerTag>
 
           <ButtonSave>
-            <Button title="Salvar" />
+            <Button title="Salvar" onPress={() => handleSubmit()} />
           </ButtonSave>
         </Container>
       </ScrollView>
