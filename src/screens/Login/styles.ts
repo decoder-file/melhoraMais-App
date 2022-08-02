@@ -3,10 +3,11 @@ import { Button } from "../../components/Button";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
-  flex: 1;
+  /* flex: 1; */
   justify-content: center;
+  height: 100%;
   padding: ${RFPercentage(3)}px;
-  background-color: ${({ theme }) => theme.colors.background};
+  margin-top: 100px;
 `;
 
 export const ContainerInput = styled.View``;
