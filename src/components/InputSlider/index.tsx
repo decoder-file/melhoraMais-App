@@ -45,10 +45,9 @@ export function InputSlider({ title, tooltip, ...rest }: InputSliderProps) {
           <InputField
             {...rest}
             onChangeText={(newText) => setSliderValue(newText)}
-            defaultValue={sliderValue}
+            defaultValue={Math.floor(sliderValue * 800).toString()}
           />
         </ContainerInput>
-        <Text>{Math.floor(sliderValue * 800)}</Text>
         <Slider
           style={{ width: "100%", height: 40 }}
           minimumTrackTintColor="#FF5531"
