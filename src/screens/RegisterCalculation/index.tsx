@@ -42,36 +42,74 @@ export function RegisterCalculation() {
             <InputSlider
               title="Peso de entrada"
               placeholder="Peso de entrada"
+              measure="Kg"
+              position="right"
             />
-            <InputSlider title="Custo diario" placeholder="Custo diario" />
+            <InputSlider
+              title="Custo diario"
+              placeholder="Custo diario"
+              measure="R$"
+              position="left"
+            />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="Preço @ compra" placeholder="Preço @ compra" />
-            <InputSlider title="GMD" placeholder="GMD" />
+            <InputSlider
+              title="Preço @ compra"
+              placeholder="Preço @ compra"
+              measure="R$"
+              position="left"
+            />
+            <InputSlider
+              title="GMD"
+              placeholder="GMD"
+              measure="g"
+              position="right"
+            />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
             <InputSlider
               title="Tempo Permanência"
               placeholder="Tempo Permanência"
+              measure="dias"
+              position="right"
             />
-            <InputSlider title="Peso de saída" placeholder="Peso de saída" />
+            <InputSlider
+              title="Peso de saída"
+              placeholder="Peso de saída"
+              measure="Kg"
+              position="left"
+            />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
-            <InputSlider title="RC inicial" placeholder="RC inicial" />
-            <InputSlider title="RC final" placeholder="RC final" />
+            <InputSlider
+              title="RC inicial"
+              placeholder="RC inicial"
+              measure="%"
+              position="right"
+            />
+            <InputSlider
+              title="RC final"
+              placeholder="RC final"
+              measure="%"
+              position="right"
+            />
           </ContainerInputSlider>
 
           <ContainerInputSlider>
             <InputSlider
               title="Preço @ de venda"
               placeholder="Preço @ de venda"
+              measure="R$"
+              position="left"
             />
             <InputSlider
               title="Valor de compra"
               placeholder="Valor de compra"
+              measure="R$"
+              position="left"
             />
           </ContainerInputSlider>
 
@@ -79,10 +117,14 @@ export function RegisterCalculation() {
             <InputSlider
               title="Preço @ produzida"
               placeholder="Preço @ produzida"
+              measure="R$"
+              position="left"
             />
             <InputSlider
               title="Rendimento do capital"
               placeholder="Rendimento do capital"
+              measure="%"
+              position="right"
             />
           </ContainerInputSlider>
 

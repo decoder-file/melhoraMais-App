@@ -7,10 +7,11 @@ export const Container = styled.View`
 `;
 
 export const ContainerInput = styled.View`
-  width: 100%;
+  width: 80%;
   height: 51px;
   background: ${({ theme }) => theme.colors.white};
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   border: 1px;
   border-color: #ebebec;
   flex-direction: row;
@@ -43,4 +44,53 @@ export const ContainerTitle = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: ${RFPercentage(2)}px;
+`;
+
+export const MeasureRight = styled.View`
+  height: 51px;
+  background: ${({ theme }) => theme.colors.white};
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  justify-content: center;
+  border-color: #ebebec;
+  align-items: center;
+  padding: 5px 5px;
+`;
+
+export const TextMeasureRight = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+`;
+
+export const MeasureLeft = styled.View`
+  height: 51px;
+  background: ${({ theme }) => theme.colors.white};
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  justify-content: center;
+  border-color: #ebebec;
+  align-items: center;
+  padding: 5px 5px;
+`;
+
+export const TextMeasureLeft = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+`;
+
+export const ContainerInputLeft = styled.View`
+  width: 100%;
+  height: 51px;
+  background: ${({ theme }) => theme.colors.white};
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 1px;
+  border-color: #ebebec;
+  flex-direction: row;
+  align-items: center;
 `;
