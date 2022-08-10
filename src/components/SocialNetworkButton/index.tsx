@@ -8,9 +8,12 @@ interface SocialNetworkButtonProps extends TouchableOpacityProps {
   nameIcon: string;
 }
 
-export function SocialNetworkButton({ nameIcon }: SocialNetworkButtonProps) {
+export function SocialNetworkButton({
+  nameIcon,
+  ...rest
+}: SocialNetworkButtonProps) {
   return (
-    <Container activeOpacity={0.8}>
+    <Container activeOpacity={0.8} {...rest}>
       <FontAwesome name={nameIcon} size={24} color="black" />
     </Container>
   );

@@ -65,3 +65,8 @@ export const ContainerSocialNetwork = styled.View`
   margin-right: 40px;
   margin-top: ${RFPercentage(5)}px;
 `;
+
+export const ContainerLoading = styled.View`
+  margin-top: 20px;
+  height: 80px;
+`;

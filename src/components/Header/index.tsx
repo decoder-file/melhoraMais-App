@@ -1,19 +1,19 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View } from "react-native";
 
 import { Container, Title, ButtonExit } from "./styles";
+import { useAuth } from "../../hooks/auth";
 
 interface headerProps {
   title: string;
 }
 
 export function Header({ title }: headerProps) {
-  const navigation = useNavigation();
+  const { signOut } = useAuth();
   return (
     <Container>
-      <ButtonExit activeOpacity={0.8} onPress={() => navigation.goBack()}>
+      <ButtonExit activeOpacity={0.8} onPress={signOut}>
         <MaterialIcons name="arrow-back-ios" size={24} color="#FFFFFF" />
       </ButtonExit>
       <Title>{title}</Title>

@@ -18,7 +18,6 @@ import { ModalContent } from "../../components/ModalContent";
 
 export function Dashboard() {
   const navigation = useNavigation();
-
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {

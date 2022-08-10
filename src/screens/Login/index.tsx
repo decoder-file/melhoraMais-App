@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
-import { ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView, Platform } from "react-native";
+
+import { useAuth } from "../../hooks/auth";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -22,6 +24,7 @@ import {
   NewPasswordText,
   Span,
   ContainerSocialNetwork,
+  ContainerLoading,
 } from "./styles";
 
 const LoginSchema = Yup.object().shape({
@@ -32,7 +35,30 @@ const LoginSchema = Yup.object().shape({
 });
 
 export function Login() {
+  const { signInwithGoogle } = useAuth();
   const navigation = useNavigation();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSignInwithGoogle() {
+    try {
+      setIsLoading(true);
+      return await signInwithGoogle();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
+  async function handleSignInwithApple() {
+    try {
+      setIsLoading(true);
+      console.log("Apple");
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
@@ -91,31 +117,49 @@ export function Login() {
             />
           </ContainerInput>
 
-          <ButtonLogin
-            title="Entrar"
-            marginTop={30}
-            onPress={() => handleSubmit()}
-          />
+          {!isLoading ? (
+            <>
+              <ButtonLogin
+                title="Entrar"
+                marginTop={30}
+                onPress={() => handleSubmit()}
+              />
 
-          <SocialNetworkTab>
-            <Line />
-            <TextSocialNetwork>ou</TextSocialNetwork>
-            <Line />
-          </SocialNetworkTab>
+              <SocialNetworkTab>
+                <Line />
+                <TextSocialNetwork>ou</TextSocialNetwork>
+                <Line />
+              </SocialNetworkTab>
 
-          <ContainerSocialNetwork>
-            <SocialNetworkButton nameIcon="apple" />
-            <SocialNetworkButton nameIcon="facebook-f" />
-            <SocialNetworkButton nameIcon="google" />
-          </ContainerSocialNetwork>
+              <ContainerSocialNetwork>
+                {Platform.OS === "ios" && (
+                  <SocialNetworkButton
+                    nameIcon="apple"
+                    onPress={handleSignInwithApple}
+                  />
+                )}
+                <SocialNetworkButton nameIcon="facebook-f" />
+                <SocialNetworkButton
+                  nameIcon="google"
+                  onPress={handleSignInwithGoogle}
+                />
+              </ContainerSocialNetwork>
 
-          <Option>
-            <NewPassword onPress={() => navigation.navigate("Registration")}>
-              <NewPasswordText>
-                Não tem uma conta? <Span>Faça seu cadastro</Span>
-              </NewPasswordText>
-            </NewPassword>
-          </Option>
+              <Option>
+                <NewPassword
+                  onPress={() => navigation.navigate("Registration")}
+                >
+                  <NewPasswordText>
+                    Não tem uma conta? <Span>Faça seu cadastro</Span>
+                  </NewPasswordText>
+                </NewPassword>
+              </Option>
+            </>
+          ) : (
+            <ContainerLoading>
+              <ActivityIndicator color="#FEC321" size="large" />
+            </ContainerLoading>
+          )}
         </Container>
       </ScrollView>
     </>
