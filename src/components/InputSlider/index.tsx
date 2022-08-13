@@ -16,6 +16,8 @@ import {
   MeasureLeft,
   TextMeasureLeft,
   ContainerInputLeft,
+  ContainerError,
+  TextError,
 } from "./styles";
 import { TouchableOpacity } from "react-native";
 
@@ -31,6 +33,7 @@ export function InputSlider({
   tooltip,
   measure,
   position,
+  error,
   ...rest
 }: InputSliderProps) {
   const [toolTipVisible, setToolTipVisible] = useState(false);
@@ -55,27 +58,41 @@ export function InputSlider({
           )}
         </ContainerTitle>
         {position === "left" ? (
-          <ContainerInputLeft>
-            <MeasureLeft>
-              <TextMeasureLeft>{measure}</TextMeasureLeft>
-            </MeasureLeft>
-            <InputField
-              {...rest}
-              onChangeText={(newText) => setSliderValue(newText)}
-              defaultValue={Math.floor(sliderValue * 800).toString()}
-            />
-          </ContainerInputLeft>
+          <>
+            <ContainerInputLeft>
+              <MeasureLeft>
+                <TextMeasureLeft>{measure}</TextMeasureLeft>
+              </MeasureLeft>
+              <InputField
+                {...rest}
+                onChangeText={(newText) => setSliderValue(newText)}
+                defaultValue={Math.floor(sliderValue * 800).toString()}
+              />
+            </ContainerInputLeft>
+            {error ? (
+              <ContainerError>
+                <TextError>{error}</TextError>
+              </ContainerError>
+            ) : null}
+          </>
         ) : (
-          <ContainerInput>
-            <InputField
-              {...rest}
-              onChangeText={(newText) => setSliderValue(newText)}
-              defaultValue={Math.floor(sliderValue * 800).toString()}
-            />
-            <MeasureRight>
-              <TextMeasureRight>{measure}</TextMeasureRight>
-            </MeasureRight>
-          </ContainerInput>
+          <>
+            <ContainerInput>
+              <InputField
+                {...rest}
+                onChangeText={(newText) => setSliderValue(newText)}
+                defaultValue={Math.floor(sliderValue * 800).toString()}
+              />
+              <MeasureRight>
+                <TextMeasureRight>{measure}</TextMeasureRight>
+              </MeasureRight>
+            </ContainerInput>
+            {error ? (
+              <ContainerError>
+                <TextError>{error}</TextError>
+              </ContainerError>
+            ) : null}
+          </>
         )}
 
         <Slider
