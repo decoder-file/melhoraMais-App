@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
+import api from "../../services/api";
+
 import {
   Container,
   ContainerInput,
@@ -37,10 +39,18 @@ export function Registration() {
     useFormik({
       validationSchema: RegistrationSchema,
       initialValues: { name: "", email: "", password: "", confirmPassword: "" },
+
       onSubmit: async (v) => {
         if (values.password === values.confirmPassword) {
           try {
-            navigation.navigate("Dashboard");
+            await api.post("/users", v);
+            showMessage({
+              message: "Cadastro realizado com sucesso!",
+              description: "Você já pode realizar o login no aplicativo",
+              type: "success",
+              icon: "success",
+            });
+            navigation.goBack();
           } catch (err: any) {
             showMessage({
               message: "Erro no cadastro",
@@ -93,7 +103,7 @@ export function Registration() {
             autoCorrect={false}
             keyboardType="email-address"
             keyboardAppearance="dark"
-            autoCompleteType="email"
+            autoComplete="email"
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             error={errors.email}
@@ -106,7 +116,7 @@ export function Registration() {
             secureTextEntry
             placeholder="Informe sua senha"
             autoCorrect={false}
-            autoCompleteType="password"
+            autoComplete="password"
             autoCapitalize="none"
             keyboardAppearance="dark"
             onChangeText={handleChange("confirmPassword")}
@@ -124,7 +134,7 @@ export function Registration() {
             autoCorrect={false}
             autoCapitalize="none"
             keyboardAppearance="dark"
-            autoCompleteType="password"
+            autoComplete="password"
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             error={errors.password}
