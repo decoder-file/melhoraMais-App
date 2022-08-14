@@ -35,10 +35,12 @@ const LoginSchema = Yup.object().shape({
 });
 
 export function Login() {
-  const { signInwithGoogle } = useAuth();
+  const { signInwithGoogle, signIn, user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation();
 
-  const [isLoading, setIsLoading] = useState(false);
+  console.log(user);
 
   async function handleSignInwithGoogle() {
     try {
@@ -66,7 +68,8 @@ export function Login() {
       initialValues: { email: "", password: "" },
       onSubmit: async (v) => {
         try {
-          navigation.navigate("Dashboard");
+          console.log(v);
+          await signIn(v);
         } catch (err: any) {
           showMessage({
             message: "Erro no login",

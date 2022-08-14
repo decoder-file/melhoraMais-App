@@ -4,12 +4,20 @@ import {
   useContext,
   useState,
   useEffect,
+  useCallback,
 } from "react";
 import * as AuthSession from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import api from "../services/api";
+
 interface AuthProviderProps {
   children: ReactNode;
+}
+
+interface AuthState {
+  token: string;
+  user: object;
 }
 
 interface User {
@@ -19,8 +27,14 @@ interface User {
   photo?: string;
 }
 
+interface SignInCredentials {
+  email: string;
+  password: string;
+}
+
 interface IAuthProviderProps {
   user: User;
+  signIn(credentials: SignInCredentials): Promise<void>;
   signInwithGoogle(): Promise<void>;
   signOut(): Promise<void>;
   userStorageLoading: boolean;
@@ -38,8 +52,38 @@ const AuthContext = createContext({} as IAuthProviderProps);
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
   const [userStorageLoading, setUserStorageLoading] = useState(true);
+  const [data, setData] = useState<AuthState>({} as AuthState);
 
-  const userStorageKey = "@melhoraMaisApp:use";
+  useEffect(() => {
+    async function loadStorageData(): Promise<void> {
+      const [token, user] = await AsyncStorage.multiGet([
+        "@GoBarber:token",
+        "@GoBarber:user",
+      ]);
+
+      if (token[1] && user[1]) {
+        setData({ token: token[1], user: JSON.parse(user[1]) });
+      }
+    }
+    loadStorageData();
+  }, []);
+
+  const userStorageUseKey = "@melhoraMaisApp:use";
+  const userStorageTokenKey = "@melhoraMaisApp:token";
+
+  const signIn = useCallback(async ({ email, password }) => {
+    const response = await api.post("/login", {
+      email,
+      password,
+    });
+
+    const { token, user } = response.data;
+
+    await AsyncStorage.setItem(userStorageTokenKey, token);
+    await AsyncStorage.setItem(userStorageUseKey, JSON.stringify(user));
+
+    setData({ token, user });
+  }, []);
 
   async function signInwithGoogle() {
     try {
@@ -68,21 +112,28 @@ function AuthProvider({ children }: AuthProviderProps) {
           photo: userInfo.picture,
         };
         setUser(userLogged);
-        await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
+        await AsyncStorage.setItem(
+          userStorageUseKey,
+          JSON.stringify(userLogged)
+        );
       }
     } catch (error) {
+      setUserStorageLoading(false);
       console.log(error);
     }
   }
 
   async function signOut() {
+    localStorage.removeItem(userStorageUseKey);
+    localStorage.removeItem(userStorageTokenKey);
+
+    setData({} as AuthState);
     setUser({} as User);
-    await AsyncStorage.removeItem(userStorageKey);
   }
 
   useEffect(() => {
     async function loadUserStorageDate() {
-      const userStoraged = await AsyncStorage.getItem(userStorageKey);
+      const userStoraged = await AsyncStorage.getItem(userStorageUseKey);
 
       if (userStoraged) {
         const userLogged = JSON.parse(userStoraged) as User;
@@ -98,6 +149,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         user,
+        signIn,
         signInwithGoogle,
         signOut,
         userStorageLoading,
