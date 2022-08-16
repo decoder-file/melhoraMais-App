@@ -4,4 +4,8 @@ const api = axios.create({
   baseURL: "http://localhost:3333",
 });
 
-export default api;
+const weatherApi = axios.create({
+  baseURL: "https://api.openweathermap.org/data/3.0",
+});
+
+export default weatherApi;

@@ -10,7 +10,6 @@ import * as AuthSession from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "../services/api";
-import { ContainerButton } from "../components/ModalContent/styles";
 
 interface AuthProviderProps {
   children: ReactNode;

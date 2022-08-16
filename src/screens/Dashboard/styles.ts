@@ -29,3 +29,5 @@ export const TitleContainerCard = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   margin-bottom: 10px;
 `;
+
+export const ContainerTemperature = styled.View``;
