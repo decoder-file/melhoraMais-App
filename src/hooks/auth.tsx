@@ -10,6 +10,7 @@ import * as AuthSession from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "../services/api";
+import { ContainerButton } from "../components/ModalContent/styles";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -77,12 +78,23 @@ function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
 
-    const { token, user } = response.data;
+    console.log("response", response.data);
 
-    await AsyncStorage.setItem(userStorageTokenKey, token);
-    await AsyncStorage.setItem(userStorageUseKey, JSON.stringify(user));
+    const { access_token } = response.data;
 
-    setData({ token, user });
+    await AsyncStorage.setItem(userStorageTokenKey, access_token);
+
+    const userLogged = {
+      id: "42314123",
+      email: "contato.loureiro1@gmail.com",
+      name: "Andre Loureiro",
+      photo: "",
+    };
+
+    setUser(userLogged);
+    await AsyncStorage.setItem(userStorageUseKey, JSON.stringify(userLogged));
+
+    // setData({ token, user });
   }, []);
 
   async function signInwithGoogle() {

@@ -40,8 +40,6 @@ export function Login() {
 
   const navigation = useNavigation();
 
-  console.log(user);
-
   async function handleSignInwithGoogle() {
     try {
       setIsLoading(true);
@@ -68,8 +66,13 @@ export function Login() {
       initialValues: { email: "", password: "" },
       onSubmit: async (v) => {
         try {
-          console.log(v);
           await signIn(v);
+          showMessage({
+            message: "Sucesso!",
+            description: "Login realizado com sucesso",
+            type: "success",
+            icon: "success",
+          });
         } catch (err: any) {
           showMessage({
             message: "Erro no login",
