@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
@@ -27,7 +28,6 @@ import {
 } from "./styles";
 import { ModalContent } from "../../components/ModalContent";
 import { Temperature } from "../../components/Temperature";
-import { string } from "yup";
 
 export function Dashboard() {
   const navigation = useNavigation();
@@ -36,6 +36,10 @@ export function Dashboard() {
     {} as CurrentTemperatureProps
   );
   const [hourly, setHourly] = useState<any[]>([]);
+
+  const weatherApi = axios.create({
+    baseURL: "https://api.openweathermap.org/data/3.0",
+  });
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
