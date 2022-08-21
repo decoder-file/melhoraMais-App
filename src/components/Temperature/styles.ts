@@ -6,6 +6,7 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
   width: 60px;
+  margin-right: 20px;
 `;
 
 export const DataText = styled.Text`
@@ -17,7 +18,7 @@ export const DataText = styled.Text`
 
 export const CurrentTemperature = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(12)}px;
   color: ${({ theme }) => theme.colors.black};
   margin-top: 5px;
 `;

@@ -4,14 +4,26 @@ import { TouchableOpacityProps } from "react-native";
 
 import { Container, DataText, CurrentTemperature } from "./styles";
 
-export function Temperature() {
+interface TemperatureProps {
+  date: string;
+  icon: string;
+  temp: string;
+}
+
+export function Temperature({ date, icon, temp }: TemperatureProps) {
+  const returnIcon = (icon: string) => {
+    if (icon === "Clear") {
+      return <Ionicons name="sunny-outline" size={24} color="black" />;
+    } else if (icon === "Rain") {
+      return <Ionicons name="rainy-outline" size={24} color="black" />;
+    }
+    return <Ionicons name="partly-sunny-outline" size={24} color="black" />;
+  };
   return (
     <Container>
-      <DataText>dsfas</DataText>
-      <Ionicons name="partly-sunny-outline" size={24} color="black" />
-      {/* <Ionicons name="sunny-outline" size={24} color="black" />
-      <Ionicons name="rainy-outline" size={24} color="black" /> */}
-      <CurrentTemperature>27°C</CurrentTemperature>
+      <DataText>{date}</DataText>
+      {returnIcon(icon)}
+      <CurrentTemperature>{temp}°C</CurrentTemperature>
     </Container>
   );
 }

@@ -30,4 +30,9 @@ export const TitleContainerCard = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const ContainerTemperature = styled.View``;
+export const ContainerTemperature = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})`
+  width: 100%;
+`;
