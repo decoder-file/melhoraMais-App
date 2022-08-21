@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
 import {
   Container,
@@ -11,7 +11,11 @@ import {
 } from "./styles";
 
 export function WelcomeHeader() {
-  const navigation = useNavigation();
+  const { signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
   return (
     <Container>
       <ContainerName>
@@ -19,7 +23,7 @@ export function WelcomeHeader() {
         <Name>André Loureiro</Name>
       </ContainerName>
 
-      <ButtonExit onPress={() => navigation.goBack()}>
+      <ButtonExit onPress={() => handleSignOut()}>
         <TitleExit>Sair</TitleExit>
       </ButtonExit>
     </Container>

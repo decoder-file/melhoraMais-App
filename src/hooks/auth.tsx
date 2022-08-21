@@ -135,25 +135,25 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOut() {
-    localStorage.removeItem(userStorageUseKey);
-    localStorage.removeItem(userStorageTokenKey);
+    AsyncStorage.removeItem(userStorageUseKey);
+    AsyncStorage.removeItem(userStorageTokenKey);
 
     setData({} as AuthState);
     setUser({} as User);
   }
 
   useEffect(() => {
-    // async function loadUserStorageDate() {
-    //   const userStoraged = await AsyncStorage.getItem(userStorageUseKey);
+    async function loadUserStorageDate() {
+      const userStoraged = await AsyncStorage.getItem(userStorageUseKey);
 
-    //   if (userStoraged) {
-    //     const userLogged = JSON.parse(userStoraged) as User;
-    //     setUser(userLogged);
-    //     setUserStorageLoading(false);
-    //   }
-    // }
-    // loadUserStorageDate();
-    signOut();
+      if (userStoraged) {
+        const userLogged = JSON.parse(userStoraged) as User;
+        setUser(userLogged);
+        setUserStorageLoading(false);
+      }
+    }
+    loadUserStorageDate();
+    // signOut();
   }, []);
 
   return (
