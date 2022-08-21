@@ -19,6 +19,7 @@ import {
   TagSelect,
   ButtonSave,
 } from "./styles";
+import api from "../../services/api";
 
 const CreateTagSchema = Yup.object().shape({
   title: Yup.string().min(1).required("Campo senha obrigatório"),
@@ -31,6 +32,10 @@ export function CreateTag() {
 
   const handleTag = (color: string) => {
     setTagselect(color);
+  };
+
+  const submitTag = async (value) => {
+    api.post("/tag-calculations", value);
   };
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
@@ -48,6 +53,8 @@ export function CreateTag() {
               icon: "danger",
             });
           } else {
+            const sendValue = { title: v.title, color: tagSelect };
+            await submitTag(sendValue);
             navigation.navigate("RegisterCalculation");
             showMessage({
               message: "Sucesso!",
