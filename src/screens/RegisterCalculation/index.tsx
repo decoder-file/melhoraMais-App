@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { ScrollView } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 import { Header } from "../../components/Header";
 import { InputSlider } from "../../components/InputSlider";
@@ -20,43 +21,67 @@ import {
   ButtonAddTag,
   TitleButtonTag,
 } from "./styles";
-import { showMessage } from "react-native-flash-message";
+import api from "../../services/api";
 
 const RegisterCalculationSchema = Yup.object().shape({
-  title: Yup.string().min(4).required("Campo título obrigatório"),
-  description: Yup.string().min(4).required("Campo Descrição obrigatório"),
+  title: Yup.string().min(4).required("Campo obrigatório"),
+  description: Yup.string().min(4).required("Campo obrigatório"),
 
-  entryWeight: Yup.number().required("Campo Peso de entrada obrigatório"),
-  dailyCost: Yup.number().required("Campo Custo diário obrigatório"),
+  entryWeight: Yup.number().required("Campo obrigatório"),
+  dailyCost: Yup.number().required("Campo obrigatório"),
 
-  priceAtPurchase: Yup.number().required("Campo Preço @ compra obrigatório"),
-  gmd: Yup.number().required("Campo GMD obrigatório"),
+  priceAtPurchase: Yup.number().required("Campo obrigatório"),
+  gmd: Yup.number().required("Campo obrigatório"),
 
-  timeOfStay: Yup.number().required("Campo Tempo Permanência obrigatório"),
-  outputWeight: Yup.number().required("Campo Peso de saída obrigatório"),
+  timeOfStay: Yup.number().required("Campo  obrigatório"),
+  outputWeight: Yup.number().required("Campo obrigatório"),
 
-  rcInitial: Yup.number().required("Campo RC Inicial obrigatório"),
-  rcFinal: Yup.number().required("Campo RC Final obrigatório"),
+  rcInitial: Yup.number().required("Campo obrigatório"),
+  rcFinal: Yup.number().required("Campo obrigatório"),
 
-  atSalePrice: Yup.number().required("Campo Preço @ de venda obrigatório"),
-  purchasePrice: Yup.number().required("Campo Valor de compraa obrigatório"),
+  atSalePrice: Yup.number().required("Campo obrigatório"),
+  purchasePrice: Yup.number().required("Campo obrigatório"),
 
-  priceAtProduced: Yup.number().required("Campo Preço @ produzida obrigatório"),
-  returnOnCapital: Yup.number().required(
-    "Campo Rendimento do capital obrigatório"
-  ),
+  priceAtProduced: Yup.number().required("Campo obrigatório"),
+  returnOnCapital: Yup.number().required("Campo obrigatório"),
 
   result: Yup.number().required("Campo Resultado obrigatório"),
 });
 
 export function RegisterCalculation() {
   const navigation = useNavigation();
+  const [listTag, setListTag] = useState<any[]>([]);
+  const [selectTag, setSelectTag] = useState("");
+
+  const handleTag = (id: string) => {
+    setSelectTag(id);
+  };
+
+  const tagSearch = async () => {
+    api
+      .get("/tag-calculations")
+      .then((response) => {
+        setListTag(response.data);
+      })
+      .catch((err) => {
+        showMessage({
+          message: "Error!",
+          description: "Ocorreu para carregar as tag personalizadas",
+          type: "danger",
+          icon: "danger",
+        });
+      });
+  };
+
+  useEffect(() => {
+    tagSearch();
+  }, []);
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
       validationSchema: RegisterCalculationSchema,
       initialValues: {
-        title: "",
+        title: "dfa",
         description: "",
         entryWeight: "",
         dailyCost: "",
@@ -96,7 +121,17 @@ export function RegisterCalculation() {
         <Container>
           <TitleTag>Etiquetas</TitleTag>
           <ContainerTag>
-            <Tag />
+            {listTag &&
+              listTag.map((e) => (
+                <Tag
+                  key={e.id}
+                  title={e.title}
+                  color={e.color}
+                  onPress={() => handleTag(e.id)}
+                  id={e.id}
+                  selectId={selectTag}
+                />
+              ))}
           </ContainerTag>
           <ButtonAddTag onPress={() => navigation.navigate("CreateTag")}>
             <TitleButtonTag>Criar nova etiqueta</TitleButtonTag>
@@ -109,6 +144,7 @@ export function RegisterCalculation() {
             autoCorrect={false}
             keyboardAppearance="dark"
             onBlur={handleBlur("title")}
+            onChangeText={handleChange("title")}
             error={errors.title}
             touched={touched.title}
             value={values.title}
@@ -121,6 +157,7 @@ export function RegisterCalculation() {
             autoCorrect={false}
             keyboardAppearance="dark"
             onBlur={handleBlur("description")}
+            onChangeText={handleChange("description")}
             error={errors.description}
             touched={touched.description}
             value={values.description}
@@ -135,6 +172,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("entryWeight")}
+              onChangeText={handleChange("entryWeight")}
               error={errors.entryWeight}
               touched={touched.entryWeight}
               value={values.entryWeight}
@@ -148,6 +186,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("dailyCost")}
+              onChangeText={handleChange("dailyCost")}
               error={errors.dailyCost}
               touched={touched.dailyCost}
               value={values.dailyCost}
@@ -157,13 +196,14 @@ export function RegisterCalculation() {
           <ContainerInputSlider>
             <InputSlider
               title="Preço @ compra"
-              placeholder="Preço @ compra"
+              placeholder="Preço"
               measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("priceAtPurchase")}
+              onChangeText={handleChange("priceAtPurchase")}
               error={errors.priceAtPurchase}
               touched={touched.priceAtPurchase}
               value={values.priceAtPurchase}
@@ -177,6 +217,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("gmd")}
+              onChangeText={handleChange("gmd")}
               error={errors.gmd}
               touched={touched.gmd}
               value={values.gmd}
@@ -193,6 +234,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("timeOfStay")}
+              onChangeText={handleChange("timeOfStay")}
               error={errors.timeOfStay}
               touched={touched.timeOfStay}
               value={values.timeOfStay}
@@ -206,6 +248,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("outputWeight")}
+              onChangeText={handleChange("outputWeight")}
               error={errors.outputWeight}
               touched={touched.outputWeight}
               value={values.outputWeight}
@@ -222,6 +265,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("rcInitial")}
+              onChangeText={handleChange("rcInitial")}
               error={errors.rcInitial}
               touched={touched.rcInitial}
               value={values.rcInitial}
@@ -235,6 +279,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("rcFinal")}
+              onChangeText={handleChange("rcFinal")}
               error={errors.rcFinal}
               touched={touched.rcFinal}
               value={values.rcFinal}
@@ -244,26 +289,28 @@ export function RegisterCalculation() {
           <ContainerInputSlider>
             <InputSlider
               title="Preço @ de venda"
-              placeholder="Preço @ de venda"
+              placeholder="Preço @"
               measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("atSalePrice")}
+              onChangeText={handleChange("atSalePrice")}
               error={errors.atSalePrice}
               touched={touched.atSalePrice}
               value={values.atSalePrice}
             />
             <InputSlider
               title="Valor de compra"
-              placeholder="Valor de compra"
+              placeholder="Valor"
               measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("purchasePrice")}
+              onChangeText={handleChange("purchasePrice")}
               error={errors.purchasePrice}
               touched={touched.purchasePrice}
               value={values.purchasePrice}
@@ -273,13 +320,14 @@ export function RegisterCalculation() {
           <ContainerInputSlider>
             <InputSlider
               title="Preço @ produzida"
-              placeholder="Preço @ produzida"
+              placeholder="Preço"
               measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("priceAtProduced")}
+              onChangeText={handleChange("priceAtProduced")}
               error={errors.priceAtProduced}
               touched={touched.priceAtProduced}
               value={values.priceAtProduced}
@@ -293,6 +341,7 @@ export function RegisterCalculation() {
               autoCorrect={false}
               keyboardAppearance="dark"
               onBlur={handleBlur("returnOnCapital")}
+              onChangeText={handleChange("returnOnCapital")}
               error={errors.returnOnCapital}
               touched={touched.returnOnCapital}
               value={values.returnOnCapital}
@@ -307,6 +356,7 @@ export function RegisterCalculation() {
             autoCorrect={false}
             keyboardAppearance="dark"
             onBlur={handleBlur("result")}
+            onChangeText={handleChange("result")}
             error={errors.result}
             touched={touched.result}
             value={values.result}

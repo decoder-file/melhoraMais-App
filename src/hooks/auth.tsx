@@ -143,17 +143,17 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   useEffect(() => {
-    async function loadUserStorageDate() {
-      const userStoraged = await AsyncStorage.getItem(userStorageUseKey);
+    // async function loadUserStorageDate() {
+    //   const userStoraged = await AsyncStorage.getItem(userStorageUseKey);
 
-      if (userStoraged) {
-        const userLogged = JSON.parse(userStoraged) as User;
-        setUser(userLogged);
-        setUserStorageLoading(false);
-      }
-    }
-    loadUserStorageDate();
-    // signOut();
+    //   if (userStoraged) {
+    //     const userLogged = JSON.parse(userStoraged) as User;
+    //     setUser(userLogged);
+    //     setUserStorageLoading(false);
+    //   }
+    // }
+    // loadUserStorageDate();
+    signOut();
   }, []);
 
   return (

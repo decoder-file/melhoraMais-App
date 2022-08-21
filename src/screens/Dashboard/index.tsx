@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
@@ -65,6 +66,11 @@ export function Dashboard() {
       });
   };
 
+  // const teste = async () => {
+  //   const token = await AsyncStorage.getItem("@melhoraMaisApp:token");
+  //   console.log("token", token);
+  // };
+
   const convertDate = (timestamp: number) => {
     var currentDate = new Date(timestamp * 1000);
     const convertedDate = moment(currentDate).format("DD/MM");
@@ -73,6 +79,7 @@ export function Dashboard() {
 
   useEffect(() => {
     weatherForecast();
+    // teste();
   }, []);
 
   return (

@@ -26,6 +26,7 @@ interface InputSliderProps extends TextInputProps {
   tooltip?: string;
   measure: string;
   position: "right" | "left";
+  error: string;
 }
 
 export function InputSlider({
@@ -65,8 +66,8 @@ export function InputSlider({
               </MeasureLeft>
               <InputField
                 {...rest}
-                onChangeText={(newText) => setSliderValue(newText)}
-                defaultValue={Math.floor(sliderValue * 800).toString()}
+                // onChangeText={(newText) => setSliderValue(newText)}
+                // defaultValue={Math.floor(sliderValue * 800).toString()}
               />
             </ContainerInputLeft>
             {error ? (
@@ -80,8 +81,8 @@ export function InputSlider({
             <ContainerInput>
               <InputField
                 {...rest}
-                onChangeText={(newText) => setSliderValue(newText)}
-                defaultValue={Math.floor(sliderValue * 800).toString()}
+                // onChangeText={(newText) => setSliderValue(newText)}
+                // defaultValue={Math.floor(sliderValue * 800).toString()}
               />
               <MeasureRight>
                 <TextMeasureRight>{measure}</TextMeasureRight>
@@ -95,7 +96,7 @@ export function InputSlider({
           </>
         )}
 
-        <Slider
+        {/* <Slider
           style={{ width: "100%", height: 40 }}
           minimumTrackTintColor="#FF5531"
           maximumTrackTintColor="#C8C8C8"
@@ -103,7 +104,7 @@ export function InputSlider({
           minimumValue={0}
           maximumValue={1}
           onValueChange={(value) => setSliderValue(value)}
-        />
+        /> */}
       </Container>
     </>
   );

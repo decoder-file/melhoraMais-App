@@ -44,6 +44,11 @@ export const ContainerTitle = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: ${RFPercentage(2)}px;
+  position: fixed;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  height: 37px;
 `;
 
 export const MeasureRight = styled.View`
@@ -63,6 +68,7 @@ export const MeasureRight = styled.View`
 export const TextMeasureRight = styled.Text`
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
+  opacity: 0.5;
 `;
 
 export const MeasureLeft = styled.View`
@@ -81,6 +87,7 @@ export const MeasureLeft = styled.View`
 export const TextMeasureLeft = styled.Text`
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
+  opacity: 0.5;
 `;
 
 export const ContainerInputLeft = styled.View`
