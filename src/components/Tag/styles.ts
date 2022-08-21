@@ -8,7 +8,6 @@ interface TagProps {
 export const Container = styled.TouchableOpacity<TagProps>`
   border-radius: 8px;
   padding: 10px;
-  max-width: 80px;
   align-items: center;
   margin-right: 5px;
   border: 2px solid white;

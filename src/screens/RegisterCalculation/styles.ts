@@ -20,7 +20,11 @@ export const TitleTag = styled.Text`
   margin-bottom: ${RFValue(10)}px;
 `;
 
-export const ContainerTag = styled.View`
+export const ContainerTag = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})`
+  width: 100%;
   flex-direction: row;
   margin-bottom: ${RFValue(10)}px;
 `;

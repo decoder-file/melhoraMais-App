@@ -34,7 +34,7 @@ export function CreateTag() {
     setTagselect(color);
   };
 
-  const submitTag = async (value) => {
+  const submitTag = async (value: object) => {
     api.post("/tag-calculations", value);
   };
 
