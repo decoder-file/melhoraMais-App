@@ -10,7 +10,11 @@ import {
   TitleExit,
 } from "./styles";
 
-export function WelcomeHeader() {
+interface WelcomeHeaderProps {
+  name: string;
+}
+
+export function WelcomeHeader({ name }: WelcomeHeaderProps) {
   const { signOut } = useAuth();
 
   const handleSignOut = async () => {
@@ -20,7 +24,7 @@ export function WelcomeHeader() {
     <Container>
       <ContainerName>
         <Welcome>Bem-vindo,</Welcome>
-        <Name>André Loureiro</Name>
+        <Name>{name}</Name>
       </ContainerName>
 
       <ButtonExit onPress={() => handleSignOut()}>

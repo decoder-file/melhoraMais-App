@@ -35,7 +35,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 export function Login() {
-  const { signInwithGoogle, signIn, user } = useAuth();
+  const { signInwithGoogle, signIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();

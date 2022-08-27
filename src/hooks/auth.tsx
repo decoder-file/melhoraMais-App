@@ -79,21 +79,14 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     console.log("response", response.data);
 
-    const { access_token } = response.data;
+    const { access_token, user } = response.data;
 
     await AsyncStorage.setItem(userStorageTokenKey, access_token);
+    await AsyncStorage.setItem(userStorageUseKey, JSON.stringify(user));
 
-    const userLogged = {
-      id: "42314123",
-      email: "contato.loureiro1@gmail.com",
-      name: "Andre Loureiro",
-      photo: "",
-    };
+    setUser(user);
 
-    setUser(userLogged);
-    await AsyncStorage.setItem(userStorageUseKey, JSON.stringify(userLogged));
-
-    // setData({ token, user });
+    // setData({ access_token, user });
   }, []);
 
   async function signInwithGoogle() {

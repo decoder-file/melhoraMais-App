@@ -11,8 +11,6 @@ import moment from "moment";
 import { CardCalculation } from "../../components/CardCalculation";
 import { WelcomeHeader } from "../../components/WelcomeHeader";
 
-import weatherApi from "../../services/api";
-
 interface CurrentTemperatureProps {
   temp: string;
   weather: [{ main: string }];
@@ -26,17 +24,19 @@ import {
   ContainerCard,
   TitleContainerCard,
   ContainerTemperature,
+  LoadingHourly,
+  TextLoadingHourly,
 } from "./styles";
 import { ModalContent } from "../../components/ModalContent";
 import { Temperature } from "../../components/Temperature";
+import { useAuth } from "../../hooks/auth";
 
 export function Dashboard() {
+  const { user } = useAuth();
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [currentTemperature, setCurrentTemperature] = useState(
-    {} as CurrentTemperatureProps
-  );
   const [hourly, setHourly] = useState<any[]>([]);
+  const [loadingHourly, setLoadingHourly] = useState(false);
 
   const weatherApi = axios.create({
     baseURL: "https://api.openweathermap.org/data/3.0",
@@ -47,13 +47,14 @@ export function Dashboard() {
   };
 
   const weatherForecast = async () => {
+    setLoadingHourly(true);
     weatherApi
       .get(
         "/onecall?lat=-19.88276022389761&lon=-44.00725642334458&&lang=pt_br&exclude=hourly&units=metric&appid=e60bbbd8743dbd96687926fd211c16f2"
       )
       .then((response) => {
-        setCurrentTemperature(response.data.current);
         setHourly(response.data.daily);
+        setLoadingHourly(false);
       })
       .catch((err) => {
         showMessage({
@@ -63,13 +64,9 @@ export function Dashboard() {
           type: "danger",
           icon: "danger",
         });
+        setLoadingHourly(false);
       });
   };
-
-  // const teste = async () => {
-  //   const token = await AsyncStorage.getItem("@melhoraMaisApp:token");
-  //   console.log("token", token);
-  // };
 
   const convertDate = (timestamp: number) => {
     var currentDate = new Date(timestamp * 1000);
@@ -79,16 +76,23 @@ export function Dashboard() {
 
   useEffect(() => {
     weatherForecast();
-    // teste();
   }, []);
 
   return (
     <>
-      <WelcomeHeader />
+      <WelcomeHeader name={user.name} />
       <Container>
         <View>
           <ContainerTemperature>
-            {hourly &&
+            {loadingHourly ? (
+              <>
+                <LoadingHourly size="small" color="#FEC321" />
+                <TextLoadingHourly>
+                  Carregando Previsão do tempo
+                </TextLoadingHourly>
+              </>
+            ) : (
+              hourly &&
               hourly.map((e) => (
                 <Temperature
                   key={e.dt}
@@ -96,7 +100,8 @@ export function Dashboard() {
                   temp={e.temp.day}
                   icon={e.weather.main}
                 />
-              ))}
+              ))
+            )}
           </ContainerTemperature>
         </View>
         <ButtonAddNewCalculation

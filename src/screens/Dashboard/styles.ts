@@ -36,3 +36,12 @@ export const ContainerTemperature = styled.ScrollView.attrs({
 })`
   width: 100%;
 `;
+
+export const LoadingHourly = styled.ActivityIndicator``;
+
+export const TextLoadingHourly = styled.Text`
+  font-size: ${RFValue(12)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.black};
+  margin-left: 10px;
+`;
