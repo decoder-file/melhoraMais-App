@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+
 import { showMessage } from "react-native-flash-message";
-import { useNavigation } from "@react-navigation/native";
-import Modal from "react-native-modal";
-import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, View } from "react-native";
+import Modal from "react-native-modal";
+
+import { useNavigation } from "@react-navigation/native";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import axios from "axios";
 import moment from "moment";
 
 import { CardCalculation } from "../../components/CardCalculation";
 import { WelcomeHeader } from "../../components/WelcomeHeader";
-
-interface CurrentTemperatureProps {
-  temp: string;
-  weather: [{ main: string }];
-  dt: string;
-}
 
 import {
   Container,
@@ -27,9 +24,19 @@ import {
   LoadingHourly,
   TextLoadingHourly,
 } from "./styles";
+
 import { ModalContent } from "../../components/ModalContent";
 import { Temperature } from "../../components/Temperature";
+
 import { useAuth } from "../../hooks/auth";
+import api from "../../services/api";
+
+interface CalculationsProps {
+  id: string;
+  tag: string;
+  title: string;
+  description: string;
+}
 
 export function Dashboard() {
   const { user } = useAuth();
@@ -37,6 +44,7 @@ export function Dashboard() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [hourly, setHourly] = useState<any[]>([]);
   const [loadingHourly, setLoadingHourly] = useState(false);
+  const [calculations, setCalculations] = useState<any[]>([]);
 
   const weatherApi = axios.create({
     baseURL: "https://api.openweathermap.org/data/3.0",
@@ -74,8 +82,26 @@ export function Dashboard() {
     return convertedDate.toString();
   };
 
+  const lookingSavedCalculations = async () => {
+    api
+      .get("/calculations")
+      .then((response) => {
+        console.log(response.data);
+        setCalculations(response.data);
+      })
+      .catch((err) => {
+        showMessage({
+          message: "Error!",
+          description: "Ocorreu para carregar as tag personalizadas",
+          type: "danger",
+          icon: "danger",
+        });
+      });
+  };
+
   useEffect(() => {
     weatherForecast();
+    lookingSavedCalculations();
   }, []);
 
   return (
@@ -119,13 +145,15 @@ export function Dashboard() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
-            <CardCalculation deleteCalculation={toggleModal} />
+            {calculations &&
+              calculations.map((e) => (
+                <CardCalculation
+                  deleteCalculation={toggleModal}
+                  key={e.id}
+                  title={e.title}
+                  description={e.description}
+                />
+              ))}
           </ScrollView>
         </ContainerCard>
 

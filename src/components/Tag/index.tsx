@@ -4,10 +4,10 @@ import { TouchableOpacityProps } from "react-native";
 import { Container, Title } from "./styles";
 
 export interface ButtonProps extends TouchableOpacityProps {
-  title: string;
-  color: string;
-  id: string;
-  selectId: string;
+  title?: string;
+  color?: string;
+  id?: string;
+  selectId?: string;
 }
 
 export function Tag({ title, color, id, selectId, ...rest }: ButtonProps) {

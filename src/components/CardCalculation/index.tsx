@@ -1,7 +1,11 @@
 import React from "react";
+
 import { TouchableOpacityProps } from "react-native";
+
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+
+import { Tag } from "../Tag";
 
 import {
   Container,
@@ -12,25 +16,28 @@ import {
   ButtonDelete,
   ContainerLocalization,
 } from "./styles";
-import { Tag } from "../Tag";
 
 export interface ButtonProps extends TouchableOpacityProps {
-  title?: string;
+  colorTag?: string;
+  title: string;
+  description: string;
   marginTop?: number;
   deleteCalculation: () => void;
 }
 
 export function CardCalculation({
+  colorTag,
   title,
+  description,
   marginTop,
   deleteCalculation,
 }: ButtonProps) {
   return (
     <Container marginTop={marginTop}>
       <ContainerDescription activeOpacity={0.8}>
-        <Tag />
-        <Title>Colonial Agropecuária</Title>
-        <Description>Registro feito na fazenda colonial</Description>
+        <Tag color={colorTag} />
+        <Title>{title}</Title>
+        <Description>{description}</Description>
         <ContainerLocalization>
           <Entypo name="location-pin" size={20} color="black" />
           <Localization>Janaúba - MG</Localization>
