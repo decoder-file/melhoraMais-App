@@ -1,25 +1,21 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+
+import { ScrollView, StatusBar } from "react-native";
 import { getBottomSpace } from "react-native-iphone-x-helper";
-import { AntDesign } from "@expo/vector-icons";
 import { showMessage } from "react-native-flash-message";
+
+import { useNavigation } from "@react-navigation/native";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { Header } from "../../components/Header";
 
 import api from "../../services/api";
 
-import {
-  Container,
-  ContainerInput,
-  Separator,
-  Title,
-  BackButton,
-} from "./styles";
+import { Container, ContainerInput, Separator } from "./styles";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string().min(2).required("Campo nome obrigatório"),
@@ -72,85 +68,65 @@ export function Profile() {
     });
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: "#FCF9F2" }}
-    >
-      <Container>
-        <BackButton activeOpacity={0.8} onPress={() => navigation.goBack()}>
-          <AntDesign name="left" size={24} color="black" />
-        </BackButton>
-        <Title>Criar conta</Title>
-        <ContainerInput>
-          <Input
-            title="Nome"
-            placeholder="Informe seu nome"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardAppearance="dark"
-            onChangeText={handleChange("name")}
-            onBlur={handleBlur("name")}
-            error={errors.name}
-            touched={touched.name}
-            value={values.name}
-          />
-          <Separator />
-          <Input
-            title="Email "
-            placeholder="Informe seu E-mail "
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            keyboardAppearance="dark"
-            autoComplete="email"
-            onChangeText={handleChange("email")}
-            onBlur={handleBlur("email")}
-            error={errors.email}
-            touched={touched.email}
-            value={values.email}
-          />
-          <Separator />
-          <Input
-            title="Senha"
-            secureTextEntry
-            placeholder="Informe sua senha"
-            autoCorrect={false}
-            autoComplete="password"
-            autoCapitalize="none"
-            keyboardAppearance="dark"
-            onChangeText={handleChange("confirmPassword")}
-            onBlur={handleBlur("confirmPassword")}
-            error={errors.confirmPassword}
-            touched={touched.confirmPassword}
-            onSubmitEditing={() => handleSubmit()}
-            value={values.confirmPassword}
-          />
-          <Separator />
-          <Input
-            title="Confirme sua senha"
-            secureTextEntry
-            placeholder="confirme sua senha"
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardAppearance="dark"
-            autoComplete="password"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
-            onSubmitEditing={() => handleSubmit()}
-            value={values.password}
-          />
-        </ContainerInput>
+    <>
+      <Header title="Perfil" />
+      <StatusBar backgroundColor="#FF5531" />
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        style={{ backgroundColor: "#FCF9F2" }}
+      >
+        <Container>
+          <ContainerInput>
+            <Input
+              title="Nome"
+              placeholder="Informe seu nome"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardAppearance="dark"
+              onChangeText={handleChange("name")}
+              onBlur={handleBlur("name")}
+              error={errors.name}
+              touched={touched.name}
+              value={values.name}
+            />
+            <Separator />
+            <Input
+              title="Email "
+              placeholder="Informe seu E-mail "
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              keyboardAppearance="dark"
+              autoComplete="email"
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
+              error={errors.email}
+              touched={touched.email}
+              value={values.email}
+            />
+            <Separator />
+            <Input
+              title="Localização"
+              placeholder="Informe sua localização"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardAppearance="dark"
+              onChangeText={handleChange("name")}
+              onBlur={handleBlur("name")}
+              error={errors.name}
+              touched={touched.name}
+              value={values.name}
+            />
+          </ContainerInput>
 
-        <Button
-          title="Criar conta"
-          marginTop={30}
-          marginBottom={getBottomSpace() + 10}
-          onPress={() => handleSubmit()}
-        />
-      </Container>
-    </ScrollView>
+          <Button
+            title="Salvar"
+            marginTop={30}
+            marginBottom={getBottomSpace() + 10}
+            onPress={() => handleSubmit()}
+          />
+        </Container>
+      </ScrollView>
+    </>
   );
 }
