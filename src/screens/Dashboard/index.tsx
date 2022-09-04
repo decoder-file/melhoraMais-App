@@ -178,6 +178,7 @@ export function Dashboard() {
                   key={e.id}
                   title={e.title}
                   description={e.description}
+                  tagId={e.tag}
                 />
               ))}
           </ScrollView>

@@ -55,3 +55,16 @@ export const ContainerLocalization = styled.View`
   align-items: center;
   margin-top: ${RFPercentage(1)}px;
 `;
+
+export const Tag = styled.TouchableOpacity`
+  border-radius: 8px;
+  padding: 5px;
+  align-items: center;
+`;
+
+export const TitleTag = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: ${RFValue(12)}px;
+  color: ${({ theme }) => theme.colors.white};
+  text-transform: capitalize;
+`;
