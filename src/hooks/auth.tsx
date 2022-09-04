@@ -25,6 +25,7 @@ interface User {
   name: string;
   email: string;
   photo?: string;
+  location: string;
 }
 
 interface SignInCredentials {

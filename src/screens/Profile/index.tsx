@@ -16,50 +16,61 @@ import { Header } from "../../components/Header";
 import api from "../../services/api";
 
 import { Container, ContainerInput, Separator } from "./styles";
+import { useAuth } from "../../hooks/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string().min(2).required("Campo nome obrigatório"),
   email: Yup.string()
     .email("Email inválido")
     .required("Campo e-mail obrigatório"),
+  location: Yup.string().min(2).required("Campo localização obrigatório"),
   password: Yup.string().min(4).required("Campo senha obrigatório"),
-  confirmPassword: Yup.string()
-    .min(4)
-    .required("Campo confirmar senha obrigatório"),
 });
 
 export function Profile() {
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
       validationSchema: RegistrationSchema,
-      initialValues: { name: "", email: "", password: "", confirmPassword: "" },
+      initialValues: {
+        name: user.name,
+        email: user.email,
+        location: user.location,
+        password: "",
+      },
 
       onSubmit: async (v) => {
-        if (values.password === values.confirmPassword) {
-          try {
-            await api.post("/users", v);
-            showMessage({
-              message: "Cadastro realizado com sucesso!",
-              description: "Você já pode realizar o login no aplicativo",
-              type: "success",
-              icon: "success",
-            });
-            navigation.goBack();
-          } catch (err: any) {
-            showMessage({
-              message: "Erro no cadastro",
-              description:
-                "Ocorreu um erro inesperado. Tente novamente mais tarde!",
-              type: "danger",
-              icon: "danger",
-            });
-          }
-        } else {
+        try {
+          await api.patch(`/users/${user.id}`, v);
           showMessage({
-            message: "Erro no cadastro",
-            description: "Os campos senhas devem ser iguais!",
+            message: "Alteração realizada com sucesso!",
+            description: "As informações de cadastro foram atualizadas",
+            type: "success",
+            icon: "success",
+          });
+          const updatedUer = {
+            email: values.email,
+            id: user.id,
+            location: values.location,
+            name: values.name,
+          };
+
+          await AsyncStorage.removeItem("@melhoraMaisApp:use");
+
+          await AsyncStorage.setItem(
+            "@melhoraMaisApp:use",
+            JSON.stringify(updatedUer)
+          );
+
+          navigation.goBack();
+        } catch (err: any) {
+          showMessage({
+            message: "Erro na atualização de cadastro",
+            description:
+              "Ocorreu um erro inesperado. Tente novamente mais tarde!",
             type: "danger",
             icon: "danger",
           });
@@ -111,11 +122,27 @@ export function Profile() {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
-              onChangeText={handleChange("name")}
-              onBlur={handleBlur("name")}
-              error={errors.name}
-              touched={touched.name}
-              value={values.name}
+              onChangeText={handleChange("location")}
+              onBlur={handleBlur("location")}
+              error={errors.location}
+              touched={touched.location}
+              value={values.location}
+            />
+            <Separator />
+            <Input
+              title="Senha"
+              secureTextEntry
+              placeholder="Informe sua senha"
+              autoCorrect={false}
+              autoComplete="password"
+              autoCapitalize="none"
+              keyboardAppearance="dark"
+              onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
+              error={errors.password}
+              touched={touched.password}
+              onSubmitEditing={() => handleSubmit()}
+              value={values.password}
             />
           </ContainerInput>
 
