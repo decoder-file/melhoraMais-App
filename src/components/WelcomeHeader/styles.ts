@@ -25,6 +25,12 @@ export const Welcome = styled.Text`
   color: ${({ theme }) => theme.colors.white};
 `;
 
+export const ButtonName = styled.TouchableOpacity`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(16)}px;
+  color: ${({ theme }) => theme.colors.white};
+`;
+
 export const Name = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
