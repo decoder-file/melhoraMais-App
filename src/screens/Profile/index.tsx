@@ -117,19 +117,6 @@ export function Profile() {
             />
             <Separator />
             <Input
-              title="Localização"
-              placeholder="Informe sua localização"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardAppearance="dark"
-              onChangeText={handleChange("location")}
-              onBlur={handleBlur("location")}
-              error={errors.location}
-              touched={touched.location}
-              value={values.location}
-            />
-            <Separator />
-            <Input
               title="Senha"
               secureTextEntry
               placeholder="Informe sua senha"
