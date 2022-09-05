@@ -286,6 +286,7 @@ export function RegisterCalculation() {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="number-pad"
               onBlur={handleBlur("atSalePrice")}
               onChangeText={handleChange("atSalePrice")}
               error={errors.atSalePrice}
@@ -320,6 +321,7 @@ export function RegisterCalculation() {
               error={errors.priceAtProduced}
               touched={touched.priceAtProduced}
               value={values.priceAtProduced}
+              editable={false}
             />
             <InputSlider
               title="Rendimento do capital(%)"
@@ -333,6 +335,7 @@ export function RegisterCalculation() {
               error={errors.returnOnCapital}
               touched={touched.returnOnCapital}
               value={values.returnOnCapital}
+              editable={false}
             />
           </ContainerInputSlider>
 
@@ -348,6 +351,7 @@ export function RegisterCalculation() {
             error={errors.result}
             touched={touched.result}
             value={values.result}
+            editable={false}
           />
 
           <Button

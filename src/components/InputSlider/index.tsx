@@ -67,7 +67,7 @@ export function InputSlider({
           </ContainerError>
         ) : null}
 
-        <Slider
+        {/* <Slider
           style={{ width: "100%", height: 40 }}
           minimumTrackTintColor="#FF5531"
           maximumTrackTintColor="#C8C8C8"
@@ -75,7 +75,7 @@ export function InputSlider({
           minimumValue={0}
           maximumValue={1}
           onValueChange={(value) => setSliderValue(value)}
-        />
+        /> */}
       </Container>
     </>
   );
