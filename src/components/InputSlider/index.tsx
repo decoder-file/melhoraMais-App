@@ -6,16 +6,11 @@ import Slider from "@react-native-community/slider";
 import { TextInputProps } from "react-native";
 
 import {
-  TextMeasureRight,
   Container,
   ContainerInput,
   TitleInput,
   InputField,
   ContainerTitle,
-  MeasureRight,
-  MeasureLeft,
-  TextMeasureLeft,
-  ContainerInputLeft,
   ContainerError,
   TextError,
 } from "./styles";
@@ -58,45 +53,21 @@ export function InputSlider({
             </Tooltip>
           )}
         </ContainerTitle>
-        {position === "left" ? (
-          <>
-            <ContainerInputLeft>
-              <MeasureLeft>
-                <TextMeasureLeft>{measure}</TextMeasureLeft>
-              </MeasureLeft>
-              <InputField
-                {...rest}
-                // onChangeText={(newText) => setSliderValue(newText)}
-                // defaultValue={Math.floor(sliderValue * 800).toString()}
-              />
-            </ContainerInputLeft>
-            {error ? (
-              <ContainerError>
-                <TextError>{error}</TextError>
-              </ContainerError>
-            ) : null}
-          </>
-        ) : (
-          <>
-            <ContainerInput>
-              <InputField
-                {...rest}
-                // onChangeText={(newText) => setSliderValue(newText)}
-                // defaultValue={Math.floor(sliderValue * 800).toString()}
-              />
-              <MeasureRight>
-                <TextMeasureRight>{measure}</TextMeasureRight>
-              </MeasureRight>
-            </ContainerInput>
-            {error ? (
-              <ContainerError>
-                <TextError>{error}</TextError>
-              </ContainerError>
-            ) : null}
-          </>
-        )}
 
-        {/* <Slider
+        <ContainerInput>
+          <InputField
+            {...rest}
+            // onChangeText={(newText) => setSliderValue(newText)}
+            // defaultValue={Math.floor(sliderValue * 800).toString()}
+          />
+        </ContainerInput>
+        {error ? (
+          <ContainerError>
+            <TextError>{error}</TextError>
+          </ContainerError>
+        ) : null}
+
+        <Slider
           style={{ width: "100%", height: 40 }}
           minimumTrackTintColor="#FF5531"
           maximumTrackTintColor="#C8C8C8"
@@ -104,7 +75,7 @@ export function InputSlider({
           minimumValue={0}
           maximumValue={1}
           onValueChange={(value) => setSliderValue(value)}
-        /> */}
+        />
       </Container>
     </>
   );

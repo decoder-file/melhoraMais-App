@@ -164,9 +164,8 @@ export function RegisterCalculation() {
           />
           <ContainerInputSlider>
             <InputSlider
-              title="Peso de entrada"
+              title="Peso de entrada(Kg)"
               placeholder="Peso de entrada"
-              measure="Kg"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
@@ -178,9 +177,8 @@ export function RegisterCalculation() {
               value={values.entryWeight}
             />
             <InputSlider
-              title="Custo diario"
+              title="Custo diario(R$)"
               placeholder="Custo diário"
-              measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -195,9 +193,8 @@ export function RegisterCalculation() {
 
           <ContainerInputSlider>
             <InputSlider
-              title="Preço @ compra"
+              title="Preço @ compra(R$)"
               placeholder="Preço"
-              measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -209,9 +206,8 @@ export function RegisterCalculation() {
               value={values.priceAtPurchase}
             />
             <InputSlider
-              title="GMD"
+              title="GMD(g)"
               placeholder="GMD"
-              measure="g"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
@@ -226,9 +222,8 @@ export function RegisterCalculation() {
 
           <ContainerInputSlider>
             <InputSlider
-              title="Tempo Permanência"
+              title="Tempo Permanência(dias)"
               placeholder="Tempo Permanência"
-              measure="dias"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
@@ -240,9 +235,8 @@ export function RegisterCalculation() {
               value={values.timeOfStay}
             />
             <InputSlider
-              title="Peso de saída"
+              title="Peso de saída(Kg)"
               placeholder="Peso de saída"
-              measure="Kg"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -257,9 +251,8 @@ export function RegisterCalculation() {
 
           <ContainerInputSlider>
             <InputSlider
-              title="RC inicial"
+              title="RC inicial(%)"
               placeholder="RC inicial"
-              measure="%"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
@@ -271,9 +264,8 @@ export function RegisterCalculation() {
               value={values.rcInitial}
             />
             <InputSlider
-              title="RC final"
+              title="RC final(%)"
               placeholder="RC final"
-              measure="%"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
@@ -288,9 +280,8 @@ export function RegisterCalculation() {
 
           <ContainerInputSlider>
             <InputSlider
-              title="Preço @ de venda"
+              title="Preço @ de venda(R$)"
               placeholder="Preço @"
-              measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -302,9 +293,8 @@ export function RegisterCalculation() {
               value={values.atSalePrice}
             />
             <InputSlider
-              title="Valor de compra"
+              title="Valor de compra(R$)"
               placeholder="Valor"
-              measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -319,9 +309,8 @@ export function RegisterCalculation() {
 
           <ContainerInputSlider>
             <InputSlider
-              title="Preço @ produzida"
+              title="Preço @ produzida(R$)"
               placeholder="Preço"
-              measure="R$"
               position="left"
               autoCapitalize="none"
               autoCorrect={false}
@@ -333,9 +322,8 @@ export function RegisterCalculation() {
               value={values.priceAtProduced}
             />
             <InputSlider
-              title="Rendimento do capital"
+              title="Rendimento do capital(%)"
               placeholder="Rendimento do capital"
-              measure="%"
               position="right"
               autoCapitalize="none"
               autoCorrect={false}
