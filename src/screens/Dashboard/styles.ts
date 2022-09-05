@@ -45,3 +45,12 @@ export const TextLoadingHourly = styled.Text`
   color: ${({ theme }) => theme.colors.black};
   margin-left: 10px;
 `;
+
+export const NotCalculations = styled.Text`
+  font-size: ${RFValue(12)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.black};
+  text-align: center;
+  margin-top: 40%;
+  opacity: 0.5;
+`;

@@ -24,6 +24,7 @@ import {
   ContainerTemperature,
   LoadingHourly,
   TextLoadingHourly,
+  NotCalculations,
 } from "./styles";
 
 import { ModalContent } from "../../components/ModalContent";
@@ -49,6 +50,8 @@ export function Dashboard() {
   const [locationLat, setLocationLat] = useState(0);
   const [locationLon, setLocationLon] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
+
+  console.log("calculations", calculations);
 
   useEffect(() => {
     (async () => {
@@ -171,7 +174,7 @@ export function Dashboard() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            {calculations &&
+            {calculations.length > 0 ? (
               calculations.map((e) => (
                 <CardCalculation
                   deleteCalculation={toggleModal}
@@ -180,7 +183,10 @@ export function Dashboard() {
                   description={e.description}
                   tagId={e.tag}
                 />
-              ))}
+              ))
+            ) : (
+              <NotCalculations>Não existe cálculos salvos</NotCalculations>
+            )}
           </ScrollView>
         </ContainerCard>
 
