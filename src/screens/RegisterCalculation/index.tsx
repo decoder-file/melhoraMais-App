@@ -27,31 +27,32 @@ const RegisterCalculationSchema = Yup.object().shape({
   title: Yup.string().min(4).required("Campo obrigatório"),
   description: Yup.string().min(4).required("Campo obrigatório"),
 
-  entryWeight: Yup.number().required("Campo obrigatório"),
-  dailyCost: Yup.number().required("Campo obrigatório"),
+  entryWeight: Yup.string().required("Campo obrigatório"),
+  dailyCost: Yup.string().required("Campo obrigatório"),
 
-  priceAtPurchase: Yup.number().required("Campo obrigatório"),
-  gmd: Yup.number().required("Campo obrigatório"),
+  priceAtPurchase: Yup.string().required("Campo obrigatório"),
+  gmd: Yup.string().required("Campo obrigatório"),
 
-  timeOfStay: Yup.number().required("Campo  obrigatório"),
-  outputWeight: Yup.number().required("Campo obrigatório"),
+  timeOfStay: Yup.string().required("Campo  obrigatório"),
+  outputWeight: Yup.string().required("Campo obrigatório"),
 
-  rcInitial: Yup.number().required("Campo obrigatório"),
-  rcFinal: Yup.number().required("Campo obrigatório"),
+  rcInitial: Yup.string().required("Campo obrigatório"),
+  rcFinal: Yup.string().required("Campo obrigatório"),
 
-  atSalePrice: Yup.number().required("Campo obrigatório"),
-  purchasePrice: Yup.number().required("Campo obrigatório"),
+  atSalePrice: Yup.string().required("Campo obrigatório"),
+  purchasePrice: Yup.string().required("Campo obrigatório"),
 
-  priceAtProduced: Yup.number().required("Campo obrigatório"),
-  returnOnCapital: Yup.number().required("Campo obrigatório"),
+  priceAtProduced: Yup.string().required("Campo obrigatório"),
+  returnOnCapital: Yup.string().required("Campo obrigatório"),
 
-  result: Yup.number().required("Campo Resultado obrigatório"),
+  result: Yup.string().required("Campo Resultado obrigatório"),
 });
 
 export function RegisterCalculation() {
   const navigation = useNavigation();
   const [listTag, setListTag] = useState<any[]>([]);
   const [selectTag, setSelectTag] = useState("");
+  const [sliderValue, setSliderValue] = useState(0);
 
   const handleTag = (id: string) => {
     setSelectTag(id);
@@ -73,6 +74,10 @@ export function RegisterCalculation() {
       });
   };
 
+  const submitCalculations = async (value: object) => {
+    api.post("/calculations", value);
+  };
+
   useEffect(() => {
     tagSearch();
   }, []);
@@ -81,7 +86,7 @@ export function RegisterCalculation() {
     useFormik({
       validationSchema: RegisterCalculationSchema,
       initialValues: {
-        title: "dfa",
+        title: "",
         description: "",
         entryWeight: "",
         dailyCost: "",
@@ -99,6 +104,30 @@ export function RegisterCalculation() {
       },
       onSubmit: async (v) => {
         try {
+          const sendValue = { tag: selectTag,
+          title: v.title,
+          description: v.description,
+          bash: "",
+          entranceWeight: v.entryWeight,
+          dailyCost: v.dailyCost,
+          gmd: v.gmd,
+          purchasePrice: v.purchasePrice,
+          lengthOfStay: v.timeOfStay,
+          outputWeight: v.outputWeight,
+          rcInitial: v.rcInitial,
+          rcEnd: v.rcFinal,
+          salePrice: v.atSalePrice,
+          producedPrice: v.priceAtProduced,
+          returnOnCapital: v.returnOnCapital,
+          result: v.result}
+
+          await submitCalculations(sendValue);
+          showMessage({
+            message: "Sucesso!",
+            description: "Cálculo criado com sucesso!",
+            type: "success",
+            icon: "success",
+          });
           navigation.navigate("Dashboard");
         } catch (err: any) {
           showMessage({
@@ -108,7 +137,7 @@ export function RegisterCalculation() {
             type: "danger",
             icon: "danger",
           });
-        }
+        } 
       },
     });
   return (
@@ -136,7 +165,6 @@ export function RegisterCalculation() {
           <ButtonAddTag onPress={() => navigation.navigate("CreateTag")}>
             <TitleButtonTag>Criar nova etiqueta</TitleButtonTag>
           </ButtonAddTag>
-
           <Input
             title="Título"
             placeholder="Título"
@@ -145,8 +173,7 @@ export function RegisterCalculation() {
             keyboardAppearance="dark"
             onBlur={handleBlur("title")}
             onChangeText={handleChange("title")}
-            error={errors.title}
-            touched={touched.title}
+            error={errors.title && touched.title && errors.title}
             value={values.title}
           />
           <Input
@@ -158,35 +185,33 @@ export function RegisterCalculation() {
             keyboardAppearance="dark"
             onBlur={handleBlur("description")}
             onChangeText={handleChange("description")}
-            error={errors.description}
-            touched={touched.description}
+            error={errors.description && touched.description && errors.description}
             value={values.description}
           />
+
           <ContainerInputSlider>
             <InputSlider
               title="Peso de entrada(Kg)"
               placeholder="Peso de entrada"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("entryWeight")}
               onChangeText={handleChange("entryWeight")}
-              error={errors.entryWeight}
-              touched={touched.entryWeight}
+              error={errors.entryWeight && touched.entryWeight && errors.entryWeight}
               value={values.entryWeight}
             />
             <InputSlider
               title="Custo diario(R$)"
               placeholder="Custo diário"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("dailyCost")}
               onChangeText={handleChange("dailyCost")}
-              error={errors.dailyCost}
-              touched={touched.dailyCost}
+              error={errors.dailyCost && touched.dailyCost && errors.dailyCost}
               value={values.dailyCost}
             />
           </ContainerInputSlider>
@@ -195,27 +220,25 @@ export function RegisterCalculation() {
             <InputSlider
               title="Preço @ compra(R$)"
               placeholder="Preço"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("priceAtPurchase")}
               onChangeText={handleChange("priceAtPurchase")}
-              error={errors.priceAtPurchase}
-              touched={touched.priceAtPurchase}
-              value={values.priceAtPurchase}
+              error={errors.priceAtPurchase && touched.priceAtPurchase && errors.priceAtPurchase}
+              value={values.priceAtPurchase }
             />
             <InputSlider
               title="GMD(g)"
               placeholder="GMD"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("gmd")}
               onChangeText={handleChange("gmd")}
-              error={errors.gmd}
-              touched={touched.gmd}
+              error={errors.gmd && touched.gmd && errors.gmd}
               value={values.gmd}
             />
           </ContainerInputSlider>
@@ -224,27 +247,25 @@ export function RegisterCalculation() {
             <InputSlider
               title="Tempo Permanência(dias)"
               placeholder="Tempo Permanência"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("timeOfStay")}
               onChangeText={handleChange("timeOfStay")}
-              error={errors.timeOfStay}
-              touched={touched.timeOfStay}
+              error={errors.timeOfStay && touched.timeOfStay && errors.timeOfStay}
               value={values.timeOfStay}
             />
             <InputSlider
               title="Peso de saída(Kg)"
               placeholder="Peso de saída"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("outputWeight")}
               onChangeText={handleChange("outputWeight")}
-              error={errors.outputWeight}
-              touched={touched.outputWeight}
+              error={errors.outputWeight && touched.outputWeight && errors.outputWeight}
               value={values.outputWeight}
             />
           </ContainerInputSlider>
@@ -253,27 +274,25 @@ export function RegisterCalculation() {
             <InputSlider
               title="RC inicial(%)"
               placeholder="RC inicial"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("rcInitial")}
               onChangeText={handleChange("rcInitial")}
-              error={errors.rcInitial}
-              touched={touched.rcInitial}
+              error={errors.rcInitial && touched.rcInitial && errors.rcInitial}
               value={values.rcInitial}
             />
             <InputSlider
               title="RC final(%)"
               placeholder="RC final"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("rcFinal")}
               onChangeText={handleChange("rcFinal")}
-              error={errors.rcFinal}
-              touched={touched.rcFinal}
+              error={errors.rcFinal && touched.rcFinal && errors.rcFinal}
               value={values.rcFinal}
             />
           </ContainerInputSlider>
@@ -282,28 +301,25 @@ export function RegisterCalculation() {
             <InputSlider
               title="Preço @ de venda(R$)"
               placeholder="Preço @"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
-              keyboardType="number-pad"
+              keyboardType="numeric"
               onBlur={handleBlur("atSalePrice")}
               onChangeText={handleChange("atSalePrice")}
-              error={errors.atSalePrice}
-              touched={touched.atSalePrice}
+              error={errors.atSalePrice && touched.atSalePrice && errors.atSalePrice}
               value={values.atSalePrice}
             />
             <InputSlider
               title="Valor de compra(R$)"
               placeholder="Valor"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("purchasePrice")}
               onChangeText={handleChange("purchasePrice")}
-              error={errors.purchasePrice}
-              touched={touched.purchasePrice}
+              error={errors.purchasePrice && touched.purchasePrice && errors.purchasePrice}
               value={values.purchasePrice}
             />
           </ContainerInputSlider>
@@ -312,30 +328,28 @@ export function RegisterCalculation() {
             <InputSlider
               title="Preço @ produzida(R$)"
               placeholder="Preço"
-              position="left"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("priceAtProduced")}
               onChangeText={handleChange("priceAtProduced")}
-              error={errors.priceAtProduced}
-              touched={touched.priceAtProduced}
+              error={errors.priceAtProduced && touched.priceAtProduced && errors.priceAtProduced}
               value={values.priceAtProduced}
-              editable={false}
+              // editable={false}
             />
             <InputSlider
               title="Rendimento do capital(%)"
               placeholder="Rendimento do capital"
-              position="right"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardAppearance="dark"
+              keyboardType="numeric"
               onBlur={handleBlur("returnOnCapital")}
               onChangeText={handleChange("returnOnCapital")}
-              error={errors.returnOnCapital}
-              touched={touched.returnOnCapital}
+              error={errors.returnOnCapital && touched.returnOnCapital && errors.returnOnCapital}
               value={values.returnOnCapital}
-              editable={false}
+              // editable={false}
             />
           </ContainerInputSlider>
 
@@ -348,10 +362,8 @@ export function RegisterCalculation() {
             keyboardAppearance="dark"
             onBlur={handleBlur("result")}
             onChangeText={handleChange("result")}
-            error={errors.result}
-            touched={touched.result}
             value={values.result}
-            editable={false}
+            // editable={false}
           />
 
           <Button

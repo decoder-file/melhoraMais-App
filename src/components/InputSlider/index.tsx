@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Tooltip from "react-native-walkthrough-tooltip";
 import Slider from "@react-native-community/slider";
@@ -14,26 +15,23 @@ import {
   ContainerError,
   TextError,
 } from "./styles";
-import { TouchableOpacity } from "react-native";
+
 
 interface InputSliderProps extends TextInputProps {
   title: string;
   tooltip?: string;
-  measure: string;
-  position: "right" | "left";
-  error: string;
+  error: React.ReactNode;
+  sliderValue?: (d: string) => void;
 }
 
 export function InputSlider({
   title,
   tooltip,
-  measure,
-  position,
+  sliderValue,
   error,
   ...rest
 }: InputSliderProps) {
   const [toolTipVisible, setToolTipVisible] = useState(false);
-  const [sliderValue, setSliderValue] = useState(0);
   return (
     <>
       <Container>
@@ -57,8 +55,6 @@ export function InputSlider({
         <ContainerInput>
           <InputField
             {...rest}
-            // onChangeText={(newText) => setSliderValue(newText)}
-            // defaultValue={Math.floor(sliderValue * 800).toString()}
           />
         </ContainerInput>
         {error ? (
@@ -74,7 +70,7 @@ export function InputSlider({
           thumbTintColor="#FF5531"
           minimumValue={0}
           maximumValue={1}
-          onValueChange={(value) => setSliderValue(value)}
+          onValueChange={sliderValue}
         /> */}
       </Container>
     </>
