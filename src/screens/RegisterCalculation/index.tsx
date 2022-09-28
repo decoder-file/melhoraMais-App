@@ -80,7 +80,7 @@ export function RegisterCalculation() {
 
   useEffect(() => {
     tagSearch();
-  }, []);
+  }, [listTag]);
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
