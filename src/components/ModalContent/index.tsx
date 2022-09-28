@@ -14,9 +14,10 @@ import {
 
 interface headerProps {
   close: () => void;
+  confirmButton: () => void
 }
 
-export function ModalContent({ close }: headerProps) {
+export function ModalContent({ close, confirmButton}: headerProps) {
   return (
     <Container>
       <Content>
@@ -24,7 +25,7 @@ export function ModalContent({ close }: headerProps) {
         <Description>Deseja excluir permanentemente esse cálculo?</Description>
 
         <ContainerButton>
-          <ButtonConfirm>
+          <ButtonConfirm onPress={confirmButton}>
             <ButtonConfirmText>Confirmar</ButtonConfirmText>
           </ButtonConfirm>
 

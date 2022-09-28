@@ -50,8 +50,7 @@ export function Dashboard() {
   const [locationLat, setLocationLat] = useState(0);
   const [locationLon, setLocationLon] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
-
-  console.log("calculations", calculations);
+  const [currentCalculation, setCurrentCalculation] = useState('')
 
   useEffect(() => {
     (async () => {
@@ -74,6 +73,36 @@ export function Dashboard() {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const selectCalculation =  (id: string) => {
+    console.log('id', id)
+    setCurrentCalculation(id)
+    toggleModal()
+  }
+
+  const deleteCalculation = async () => {
+    const value = currentCalculation.valueOf();
+    api
+    .delete(`/calculations/${value}`)
+    .then((response) => {
+      toggleModal()
+      if(response.status){
+        showMessage({
+          message: "Cálculo excluído com sucesso!",
+          type: "success",
+          icon: "success",
+        });
+      }
+    })
+    .catch((err) => {
+      showMessage({
+        message: "Error!",
+        description: "Ocorreu para carregar as tag personalizadas",
+        type: "danger",
+        icon: "danger",
+      });
+    });
+  }
 
   const weatherForecast = async () => {
     setLoadingHourly(true);
@@ -149,8 +178,11 @@ export function Dashboard() {
 
   useEffect(() => {
     weatherForecast();
-    lookingSavedCalculations();
   }, []);
+
+  useEffect(() => {
+    lookingSavedCalculations();
+  }, [calculations]);
 
   return (
     <>
@@ -177,7 +209,7 @@ export function Dashboard() {
             {calculations.length > 0 ? (
               calculations.map((e) => (
                 <CardCalculation
-                  deleteCalculation={toggleModal}
+                  deleteCalculation={() => selectCalculation(e.id)}
                   key={e.id}
                   title={e.title}
                   description={e.description}
@@ -191,7 +223,7 @@ export function Dashboard() {
         </ContainerCard>
 
         <Modal isVisible={isModalVisible}>
-          <ModalContent close={toggleModal} />
+          <ModalContent close={toggleModal} confirmButton={deleteCalculation} />
         </Modal>
       </Container>
     </>
