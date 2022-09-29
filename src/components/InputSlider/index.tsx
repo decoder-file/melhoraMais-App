@@ -20,7 +20,7 @@ import {
 interface InputSliderProps extends TextInputProps {
   title: string;
   tooltip?: string;
-  error: React.ReactNode;
+  error?: React.ReactNode;
   sliderValue?: (d: string) => void;
 }
 

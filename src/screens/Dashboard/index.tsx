@@ -32,6 +32,8 @@ import { Temperature } from "../../components/Temperature";
 
 import { useAuth } from "../../hooks/auth";
 import api from "../../services/api";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../routes/app.routes";
 
 interface CalculationsProps {
   id: string;
@@ -40,9 +42,11 @@ interface CalculationsProps {
   description: string;
 }
 
-export function Dashboard() {
+interface DashboardProps
+  extends StackScreenProps<RootStackParamList, 'Dashboard'> {}
+
+export function Dashboard({navigation}:DashboardProps) {
   const { user } = useAuth();
-  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const [hourly, setHourly] = useState<any[]>([]);
   const [loadingHourly, setLoadingHourly] = useState(false);
@@ -75,7 +79,6 @@ export function Dashboard() {
   };
 
   const selectCalculation =  (id: string) => {
-    console.log('id', id)
     setCurrentCalculation(id)
     toggleModal()
   }
@@ -209,6 +212,7 @@ export function Dashboard() {
             {calculations.length > 0 ? (
               calculations.map((e) => (
                 <CardCalculation
+                  clickCalculationCard={() => navigation.navigate("RegisterCalculationEdit", {id: e.id})}
                   deleteCalculation={() => selectCalculation(e.id)}
                   key={e.id}
                   title={e.title}

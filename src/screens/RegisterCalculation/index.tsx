@@ -27,8 +27,8 @@ const RegisterCalculationSchema = Yup.object().shape({
   title: Yup.string().min(4).required("Campo obrigatório"),
   description: Yup.string().min(4).required("Campo obrigatório"),
 
-  entryWeight: Yup.string().required("Campo obrigatório"),
-  dailyCost: Yup.string().required("Campo obrigatório"),
+  entryWeight: Yup.number().required("Campo obrigatório"),
+  dailyCost: Yup.number().required("Campo obrigatório"),
 
   priceAtPurchase: Yup.string().required("Campo obrigatório"),
   gmd: Yup.string().required("Campo obrigatório"),
@@ -88,8 +88,8 @@ export function RegisterCalculation() {
       initialValues: {
         title: "",
         description: "",
-        entryWeight: "",
-        dailyCost: "",
+        entryWeight: 0,
+        dailyCost: 0,
         priceAtPurchase: "",
         gmd: "",
         timeOfStay: "",
@@ -104,12 +104,13 @@ export function RegisterCalculation() {
       },
       onSubmit: async (v) => {
         try {
-          const sendValue = { tag: selectTag,
+          const sendValue = { 
+          tag: selectTag,
           title: v.title,
           description: v.description,
           bash: "",
-          entranceWeight: v.entryWeight,
-          dailyCost: v.dailyCost,
+          entranceWeight: v.entryWeight.toString(),
+          dailyCost: v.dailyCost.toString(),
           gmd: v.gmd,
           purchasePrice: v.purchasePrice,
           lengthOfStay: v.timeOfStay,

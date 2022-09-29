@@ -5,8 +5,18 @@ import { CreateTag } from "../screens/CreateTag";
 import { Dashboard } from "../screens/Dashboard";
 import { RegisterCalculation } from "../screens/RegisterCalculation";
 import { Profile } from "../screens/Profile";
+import { RegisterCalculationEdit, RegisterCalculationEditProps} from "../screens/RegisterCalculationEdit";
 
-const { Navigator, Screen } = createStackNavigator();
+
+export type RootStackParamList = {
+  CreateTag: undefined;
+  Dashboard: undefined;
+  RegisterCalculation: undefined;
+  RegisterCalculationEdit: RegisterCalculationEditProps;
+  Profile: undefined;
+};
+
+const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
 export function AppRoutes() {
   return (
@@ -24,6 +34,11 @@ export function AppRoutes() {
       <Screen
         name="RegisterCalculation"
         component={RegisterCalculation}
+        options={{ headerShown: false }}
+      />
+       <Screen
+        name="RegisterCalculationEdit"
+        component={RegisterCalculationEdit}
         options={{ headerShown: false }}
       />
       <Screen

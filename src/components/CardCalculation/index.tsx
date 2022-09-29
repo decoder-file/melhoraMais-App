@@ -23,6 +23,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   title: string;
   description: string;
   marginTop?: number;
+  clickCalculationCard: () => void;
   deleteCalculation: () => void;
 }
 
@@ -31,6 +32,7 @@ export function CardCalculation({
   title,
   description,
   marginTop,
+  clickCalculationCard,
   deleteCalculation,
 }: ButtonProps) {
   const [listTag, setListTag] = useState<any[]>([]);
@@ -75,7 +77,7 @@ export function CardCalculation({
 
   return (
     <Container marginTop={marginTop}>
-      <ContainerDescription activeOpacity={0.8}>
+      <ContainerDescription activeOpacity={0.8} onPress={clickCalculationCard}>
         {tagInfo.length > 0 && (
           <Tag
             activeOpacity={0.8}
