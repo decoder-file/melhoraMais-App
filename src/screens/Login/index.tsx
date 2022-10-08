@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import { Input } from "../../components/Input";
 import { SocialNetworkButton } from "../../components/SocialNetworkButton";
 
+import Logo from '../../assets/Logo.png'
+
 import {
   Container,
   ButtonLogin,
@@ -25,6 +27,9 @@ import {
   Span,
   ContainerSocialNetwork,
   ContainerLoading,
+  ImgLogo,
+  Content,
+  ContainerButton
 } from "./styles";
 
 const LoginSchema = Yup.object().shape({
@@ -92,80 +97,86 @@ export function Login() {
         style={{ backgroundColor: "#FCF9F2" }}
       >
         <Container>
-          <ContainerInput>
-            <Input
-              title="E-mail"
-              placeholder="Informe seu E-mail"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              keyboardAppearance="dark"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              error={errors.email}
-              touched={touched.email}
-              value={values.email}
-            />
-            <Separator />
-            <Input
-              title="Senha"
-              secureTextEntry
-              placeholder="Informe sua senha"
-              autoCorrect={false}
-              autoCapitalize="none"
-              keyboardAppearance="dark"
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              error={errors.password}
-              touched={touched.password}
-              onSubmitEditing={() => handleSubmit()}
-              value={values.password}
-            />
-          </ContainerInput>
-
-          {!isLoading ? (
-            <>
-              <ButtonLogin
-                title="Entrar"
-                marginTop={30}
-                onPress={() => handleSubmit()}
+          <ImgLogo source={Logo} />
+          <Content>
+            <ContainerInput>
+              <Input
+                title="E-mail"
+                placeholder="Informe seu E-mail"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                keyboardAppearance="dark"
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                error={errors.email}
+                touched={touched.email}
+                value={values.email}
               />
+              <Separator />
+              <Input
+                title="Senha"
+                secureTextEntry
+                placeholder="Informe sua senha"
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardAppearance="dark"
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                error={errors.password}
+                touched={touched.password}
+                onSubmitEditing={() => handleSubmit()}
+                value={values.password}
+              />
+            </ContainerInput>
 
-              <SocialNetworkTab>
-                <Line />
-                <TextSocialNetwork>ou</TextSocialNetwork>
-                <Line />
-              </SocialNetworkTab>
+            {!isLoading ? (
+              <>
 
-              <ContainerSocialNetwork>
-                {Platform.OS === "ios" && (
-                  <SocialNetworkButton
-                    nameIcon="apple"
-                    onPress={handleSignInwithApple}
-                  />
-                )}
-                <SocialNetworkButton nameIcon="facebook-f" />
-                <SocialNetworkButton
-                  nameIcon="google"
-                  onPress={handleSignInwithGoogle}
+              <ContainerButton>
+                <ButtonLogin
+                  title="Entrar"
+                  marginTop={30}
+                  onPress={() => handleSubmit()}
                 />
-              </ContainerSocialNetwork>
+              </ContainerButton>
 
-              <Option>
-                <NewPassword
-                  onPress={() => navigation.navigate("Registration")}
-                >
-                  <NewPasswordText>
-                    Não tem uma conta? <Span>Faça seu cadastro</Span>
-                  </NewPasswordText>
-                </NewPassword>
-              </Option>
-            </>
-          ) : (
-            <ContainerLoading>
-              <ActivityIndicator color="#FEC321" size="large" />
-            </ContainerLoading>
-          )}
+                <SocialNetworkTab>
+                  <Line />
+                  <TextSocialNetwork>ou</TextSocialNetwork>
+                  <Line />
+                </SocialNetworkTab>
+
+                <ContainerSocialNetwork>
+                  {Platform.OS === "ios" && (
+                    <SocialNetworkButton
+                      nameIcon="apple"
+                      onPress={handleSignInwithApple}
+                    />
+                  )}
+                  <SocialNetworkButton nameIcon="facebook-f" />
+                  <SocialNetworkButton
+                    nameIcon="google"
+                    onPress={handleSignInwithGoogle}
+                  />
+                </ContainerSocialNetwork>
+
+                <Option>
+                  <NewPassword
+                    onPress={() => navigation.navigate("Registration")}
+                  >
+                    <NewPasswordText>
+                      Não tem uma conta? <Span>Faça seu cadastro</Span>
+                    </NewPasswordText>
+                  </NewPassword>
+                </Option>
+              </>
+            ) : (
+              <ContainerLoading>
+                <ActivityIndicator color="#FEC321" size="large" />
+              </ContainerLoading>
+            )}
+          </Content>
         </Container>
       </ScrollView>
     </>

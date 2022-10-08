@@ -3,8 +3,9 @@ import { Button } from "../../components/Button";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
-  /* flex: 1; */
-  justify-content: center;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
   height: 100%;
   padding: ${RFPercentage(3)}px;
   margin-top: 100px;
@@ -16,7 +17,9 @@ export const Separator = styled.View`
   margin-bottom: 20px;
 `;
 
-export const ButtonLogin = styled(Button)``;
+export const ButtonLogin = styled(Button)`
+  width: 100%; 
+`;
 
 export const SocialNetworkTab = styled.View`
   width: 100%;
@@ -70,3 +73,11 @@ export const ContainerLoading = styled.View`
   margin-top: 20px;
   height: 80px;
 `;
+
+export const ImgLogo = styled.Image`
+  margin-bottom: 30px
+`;
+
+export const Content = styled.View``;
+
+export const ContainerButton = styled.View``
