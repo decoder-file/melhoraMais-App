@@ -22,6 +22,7 @@ interface InputSliderProps extends TextInputProps {
   tooltip?: string;
   error?: React.ReactNode;
   sliderValue?: (d: string) => void;
+  isSlide?: boolean;
 }
 
 export function InputSlider({
@@ -29,6 +30,7 @@ export function InputSlider({
   tooltip,
   sliderValue,
   error,
+  isSlide,
   ...rest
 }: InputSliderProps) {
   const [toolTipVisible, setToolTipVisible] = useState(false);
@@ -62,16 +64,18 @@ export function InputSlider({
             <TextError>{error}</TextError>
           </ContainerError>
         ) : null}
-
-        {/* <Slider
-          style={{ width: "100%", height: 40 }}
-          minimumTrackTintColor="#FF5531"
-          maximumTrackTintColor="#C8C8C8"
-          thumbTintColor="#FF5531"
-          minimumValue={0}
-          maximumValue={1}
-          onValueChange={sliderValue}
-        /> */}
+        {isSlide &&  
+          <Slider
+            style={{ width: "100%", height: 40 }}
+            minimumTrackTintColor="#FF5531"
+            maximumTrackTintColor="#C8C8C8"
+            thumbTintColor="#FF5531"
+            minimumValue={0}
+            maximumValue={1}
+            onValueChange={sliderValue}
+          />
+        }
+       
       </Container>
     </>
   );
