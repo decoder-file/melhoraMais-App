@@ -136,18 +136,14 @@ export function RegisterCalculation() {
             result: result.toString()
           }
 
-          console.log('#######',sendValue)
-
-          
-
-          // await submitCalculations(sendValue);
-          // showMessage({
-          //   message: "Sucesso!",
-          //   description: "Cálculo criado com sucesso!",
-          //   type: "success",
-          //   icon: "success",
-          // });
-          // navigation.navigate("Dashboard");
+          await submitCalculations(sendValue);
+          showMessage({
+            message: "Sucesso!",
+            description: "Cálculo criado com sucesso!",
+            type: "success",
+            icon: "success",
+          });
+          navigation.navigate("Dashboard");
         } catch (err: any) {
           showMessage({
             message: "Erro no login",
