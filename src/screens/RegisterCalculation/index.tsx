@@ -164,7 +164,7 @@ export function RegisterCalculation() {
 
   const handleChangePriceAtProduced = async () => {
     const calc = (dailyCost * timeOfStay) / bash;
-    await setPriceAtProduced(calc);
+    await setPriceAtProduced(parseFloat(calc.toFixed(2)));
   };
 
   const handleChangePurchasePrice = async () => {

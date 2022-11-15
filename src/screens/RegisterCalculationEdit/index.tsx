@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 import { Header } from "../../components/Header";
@@ -7,7 +7,7 @@ import { InputSlider } from "../../components/InputSlider";
 import { Input } from "../../components/Input";
 import { Tag } from "../../components/Tag";
 
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackScreenProps } from "@react-navigation/stack";
 
 import api from "../../services/api";
 
@@ -19,14 +19,15 @@ import {
   ContainerTag,
   TitleTag,
 } from "./styles";
+import { ShowResult } from "../../components/ShowResult";
+import { getBottomSpace } from "react-native-iphone-x-helper";
 
 export interface RegisterCalculationEditProps {
- id: string;
+  id: string;
 }
 
 interface RegisterCalculationEditNavigateProps
-  extends StackScreenProps<RootStackParamList, 'RegisterCalculationEdit'> {}
-
+  extends StackScreenProps<RootStackParamList, "RegisterCalculationEdit"> {}
 
 interface CalculationsProps {
   bash: string;
@@ -37,14 +38,14 @@ interface CalculationsProps {
   gmd: string;
   id: string;
   length_of_stay: string;
-  output_weight:string;
-  produced_price:  string;
-  purchase_price:  string;
+  output_weight: string;
+  produced_price: string;
+  purchase_price: string;
   rc_end: string;
   rc_initial: string;
   result: string;
-  return_on_capital:  string;
-  sale_price:string;
+  return_on_capital: string;
+  sale_price: string;
   tag: string;
   title: string;
   updated_at: string;
@@ -55,8 +56,12 @@ interface TagProps {
   color: string;
 }
 
-export function RegisterCalculationEdit({ route }:RegisterCalculationEditNavigateProps) {
-  const [listCalculations, setListCalculations] = useState({} as CalculationsProps );
+export function RegisterCalculationEdit({
+  route,
+}: RegisterCalculationEditNavigateProps) {
+  const [listCalculations, setListCalculations] = useState(
+    {} as CalculationsProps
+  );
   const [selectTagId, setSelectTagId] = useState("");
   const [selectTagList, setSelectTagList] = useState({} as TagProps);
 
@@ -66,7 +71,8 @@ export function RegisterCalculationEdit({ route }:RegisterCalculationEditNavigat
       .get(`/calculations/${value}`)
       .then((response) => {
         setListCalculations(response.data);
-        setSelectTagId(response.data.tag)
+        console.log("response.data", response.data);
+        setSelectTagId(response.data.tag);
       })
       .catch((err) => {
         showMessage({
@@ -114,108 +120,108 @@ export function RegisterCalculationEdit({ route }:RegisterCalculationEditNavigat
         <Container>
           <TitleTag>Etiquetas</TitleTag>
           <ContainerTag>
-            {selectTagList &&
-                <Tag
-                  title={selectTagList.title}
-                  color={selectTagList.color}
-                />
-              }
+            {selectTagList && (
+              <Tag title={selectTagList.title} color={selectTagList.color} />
+            )}
           </ContainerTag>
-              <Input
-                title="Título"
-                editable={false}
-                value={listCalculations?.title}
-              />
-              <Input
-                title="Descrição"
-                marginTop={20}
-                editable={false}
-                value={listCalculations?.description}
-              />
+          <Input
+            title="Título"
+            editable={false}
+            value={listCalculations?.title}
+          />
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="Peso de entrada(Kg)"
-                  editable={false}
-                  value={listCalculations?.entrance_weight}
-                />
-                <InputSlider
-                  title="Custo diario(R$)"
-                  editable={false}
-                  value={listCalculations?.daily_cost}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="Peso de entrada(Kg)"
+              editable={false}
+              value={listCalculations?.entrance_weight}
+            />
+            <InputSlider
+              title="Custo diario(R$)"
+              editable={false}
+              value={listCalculations?.daily_cost}
+            />
+          </ContainerInputSlider>
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="Preço @ compra(R$)"
-                  editable={false}
-                  value={listCalculations?.purchase_price}
-                />
-                <InputSlider
-                  title="GMD(g)"
-                  editable={false}
-                  value={listCalculations?.gmd}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="Preço @ compra(R$)"
+              editable={false}
+              value={listCalculations?.sale_price}
+            />
+            <InputSlider
+              title="GMD(g)"
+              editable={false}
+              value={listCalculations?.gmd}
+            />
+          </ContainerInputSlider>
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="Tempo Permanência(dias)"
-                  editable={false}
-                  value={listCalculations?.length_of_stay}
-                />
-                <InputSlider
-                  title="Peso de saída(Kg)"
-                  editable={false}
-                  value={listCalculations?.output_weight}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="Tempo Permanência(dias)"
+              editable={false}
+              value={listCalculations?.length_of_stay}
+            />
+            <InputSlider
+              title="Peso de saída(Kg)"
+              editable={false}
+              value={listCalculations?.output_weight}
+            />
+          </ContainerInputSlider>
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="RC inicial(%)"
-                  editable={false}
-                  value={listCalculations?.rc_initial}
-                />
-                <InputSlider
-                  title="RC final(%)"
-                  editable={false}
-                  value={listCalculations?.rc_end}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="RC inicial(%)"
+              editable={false}
+              value={listCalculations?.rc_initial}
+            />
+            <InputSlider
+              title="RC final(%)"
+              editable={false}
+              value={listCalculations?.rc_end}
+            />
+          </ContainerInputSlider>
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="Preço @ de venda(R$)"
-                  editable={false}
-                  value={listCalculations?.produced_price}
-                />
-                <InputSlider
-                  title="Valor de compra(R$)"
-                  editable={false}
-                  value={listCalculations?.sale_price}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="Preço @ produzida(R$)"
+              editable={false}
+              value={listCalculations?.produced_price}
+            />
+            <InputSlider
+              title="Valor de compra(R$)"
+              editable={false}
+              value={listCalculations?.purchase_price}
+            />
+          </ContainerInputSlider>
 
-              <ContainerInputSlider>
-                <InputSlider
-                  title="Preço @ produzida(R$)"
-                  editable={false}
-                  value={listCalculations?.produced_price}
-                />
-                <InputSlider
-                  title="Rendimento do capital(%)"
-                  editable={false}
-                  value={listCalculations?.return_on_capital}
-                />
-              </ContainerInputSlider>
+          <ContainerInputSlider>
+            <InputSlider
+              title="Quantidade de @ Produzidas"
+              editable={false}
+              value={listCalculations?.bash}
+            />
+            <InputSlider
+              title="Preço @ de venda(R$)"
+              editable={false}
+              value={listCalculations?.sale_price}
+            />
+          </ContainerInputSlider>
 
-              <Input
-                title="Resultado"
-                editable={false}
-                value={listCalculations?.result}
-              />
+          <ContainerInputSlider>
+            <ShowResult
+              title="Rendimento do capital(%)"
+              isWidth
+              label={listCalculations?.return_on_capital}
+            />
+          </ContainerInputSlider>
+
+          <Input
+            title="Resultado"
+            editable={false}
+            value={listCalculations?.result}
+          />
+          <View style={{ marginBottom: getBottomSpace() + 10 }} />
         </Container>
       </ScrollView>
     </>
