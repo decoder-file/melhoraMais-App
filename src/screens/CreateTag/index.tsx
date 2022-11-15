@@ -28,10 +28,10 @@ const CreateTagSchema = Yup.object().shape({
 export function CreateTag() {
   const navigation = useNavigation();
 
-  const [tagSelect, setTagselect] = useState("");
+  const [tagSelect, setTagSelect] = useState("");
 
   const handleTag = (color: string) => {
-    setTagselect(color);
+    setTagSelect(color);
   };
 
   const submitTag = async (value: object) => {
